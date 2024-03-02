@@ -2,8 +2,15 @@ package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
 import org.springframework.data.geo.Point;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
+@Getter
+@Data
+@Table(name = "locations")
 public class Location {
 
     @Id

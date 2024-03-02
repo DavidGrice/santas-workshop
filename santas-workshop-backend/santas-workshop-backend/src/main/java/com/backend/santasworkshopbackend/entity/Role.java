@@ -1,8 +1,15 @@
 package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
+@Getter
+@Data
+@Table(name = "roles")
 public class Role {
     
     @Id

@@ -16,7 +16,9 @@ import lombok.ToString;
 public class UserDTO {
 
     private Long id;
-    private String username;
+    private String email;
+    private String userName;
+    private String password; // Consider not including this in the DTO for security reasons
     private String firstName;
     private String lastName;
 

@@ -1,10 +1,18 @@
 package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import java.sql.Date;
 
 
 @Entity
+@Setter
+@Getter
+@Data
+@Table(name = "deliveries")
 public class Delivery {
     
     @Id

@@ -1,9 +1,16 @@
 package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+@Setter
+@Getter
+@Data
+@Table(name = "users")
 public class User {
 
     @Id
@@ -15,7 +22,7 @@ public class User {
     private String email;
 
     @Column(name = "username", nullable = false)
-    private String username;
+    private String userName;
   
     @Column(name = "password", nullable = false)
     private String password;

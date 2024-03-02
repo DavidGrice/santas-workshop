@@ -1,19 +1,17 @@
 package com.backend.santasworkshopbackend.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.backend.santasworkshopbackend.dto.DeliveryDTO;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
-public class DeliveryService {
+public interface DeliveryService {
     
     DeliveryDTO createDelivery(DeliveryDTO deliveryDTO);
     DeliveryDTO getDelivery(Long id);
-    List<DeliveryDTO> getAllDeliveries();
-    DeliveryDTO updateDelivery(DeliveryDTO deliveryDTO);
+    Page<DeliveryDTO> getAllDeliveries(Pageable pageable);
+    DeliveryDTO updateDelivery(Long id, DeliveryDTO deliveryDTO);
     void deleteDelivery(Long id);
     
 }

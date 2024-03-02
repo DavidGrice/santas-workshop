@@ -7,9 +7,11 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL,
-    first_name VARCHAR(100),
-    last_name VARCHAR(100)
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE descriptions (
@@ -55,6 +57,7 @@ CREATE TABLE deliveries (
     location_id INTEGER,
     toy_id INTEGER,
     status_type VARCHAR(100),
+    delivered_date DATE,
     FOREIGN KEY (location_id) REFERENCES locations(id),
     FOREIGN KEY (toy_id) REFERENCES toys(id)
 );

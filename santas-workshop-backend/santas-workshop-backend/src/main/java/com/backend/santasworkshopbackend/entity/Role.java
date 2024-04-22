@@ -20,9 +20,18 @@ public class Role {
     @Column(name = "role_name", nullable = false)
     private String roleName;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "role_description", nullable = false)
+    private String roleDescription;
 
     // getters and setters...
+    public Role(Role role, boolean shallow) {
+        if (role != null) {
+            this.id = role.getId();
+            this.roleName = role.getRoleName();
+            this.roleDescription = role.getRoleDescription();
+        }
+    }
+
+    public Role() {
+    }
 }

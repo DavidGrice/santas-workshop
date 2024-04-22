@@ -4,8 +4,13 @@ import org.springframework.web.bind.annotation.*;
 import com.backend.santasworkshopbackend.dto.UserDTO;
 import com.backend.santasworkshopbackend.service.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -21,32 +26,38 @@ public class UserController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@Validated
+                                              @RequestBody UserDTO userDTO) {
         UserDTO createdUser = userService.createUser(userDTO);
-        return ResponseEntity.ok(createdUser);
+        return new ResponseEntity<UserDTO>(createdUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         UserDTO user = userService.getUser(id);
-        return ResponseEntity.ok(user);
+        return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
     }
 
     @GetMapping("/getAllUsers")
     public ResponseEntity<Page<UserDTO>> getUsers(Pageable pageable) {
         Page<UserDTO> users = userService.getUsers(pageable);
-        return ResponseEntity.ok(users);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        UserDTO updatedUser = userService.updateUser(id, userDTO);
-        return ResponseEntity.ok(updatedUser);
+    @PutMapping("{id}")
+    public ResponseEntity<UserDTO> updateUser(@Validated
+                                              @PathVariable("id") Long id,
+                                              @RequestBody UserDTO user) {
+        user.setId(id);
+        UserDTO updatedUser = userService.updateUser(user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User deleted successfully");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

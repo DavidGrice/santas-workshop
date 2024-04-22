@@ -20,16 +20,17 @@ public class Delivery {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "c_name", nullable = false)
-    private String cName;
+    @ManyToOne
+    @JoinColumn(name = "child_id", nullable = false)
+    private Child childID;
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
-    private Location location;
+    private Location locationId;
 
     @ManyToOne
     @JoinColumn(name = "toy_id", nullable = false)
-    private Toy toy;
+    private Toy toyId;
 
     @Column(name = "status_type", nullable = false)
     private String statusType;
@@ -38,4 +39,17 @@ public class Delivery {
     private Date deliveredDate;
 
     // getters and setters...
+    public Delivery(Delivery delivery, boolean shallow) {
+        if (delivery != null) {
+            this.id = delivery.getId();
+            this.childID = delivery.getChildID();
+            this.locationId = delivery.getLocationId();
+            this.toyId = delivery.getToyId();
+            this.statusType = delivery.getStatusType();
+            this.deliveredDate = delivery.getDeliveredDate();
+        }
+    }
+
+    public Delivery() {
+    }
 }

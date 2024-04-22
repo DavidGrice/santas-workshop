@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Entity
 @Setter
 @Getter
@@ -33,5 +32,22 @@ public class User {
     @Column(name = "lastName", nullable = false)
     private String lastName;
 
+    @Column(name = "role_id", nullable = false)
+    private Role roleID;
+
     // getters and setters...
+    public User(User user, boolean shallow) {
+        if (user != null) {
+            this.id = user.getId();
+            this.email = user.getEmail();
+            this.userName = user.getUserName();
+            this.password = user.getPassword();
+            this.firstName = user.getFirstName();
+            this.lastName = user.getLastName();
+            this.roleID = user.getRoleID();
+        }
+    }
+
+    public User() {
+    }
 }

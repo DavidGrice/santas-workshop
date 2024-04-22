@@ -37,4 +37,18 @@ public class Location {
     private Point coordinates; // This should be a Point type if your ORM supports it
 
     // getters and setters...
+    public Location(Location location, boolean shallow) {
+        if (location != null) {
+            this.id = location.getId();
+            this.address = location.getAddress();
+            this.city = location.getCity();
+            this.stateProv = location.getStateProv();
+            this.country = location.getCountry();
+            this.region = location.getRegion();
+            this.coordinates = location.getCoordinates();
+        }
+    }
+
+    public Location() {
+    }
 }

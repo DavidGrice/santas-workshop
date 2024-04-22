@@ -44,4 +44,19 @@ public class Toy {
     private Long quantity;
 
     // getters and setters...
+    public Toy(Toy toy, boolean shallow) {
+        if (toy != null) {
+            this.id = toy.getId();
+            this.name = toy.getName();
+            this.description = toy.getDescription();
+            this.addedBy = toy.getAddedBy();
+            this.addedDate = toy.getAddedDate();
+            this.updatedBy = toy.getUpdatedBy();
+            this.updatedDate = toy.getUpdatedDate();
+            this.quantity = toy.getQuantity();
+        }
+    }
+
+    public Toy() {
+    }
 }

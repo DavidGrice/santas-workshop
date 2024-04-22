@@ -10,8 +10,8 @@ public interface ToyService {
 
     ToyDTO createToy(ToyDTO toyDTO);
     ToyDTO getToy(Long id);
-    Page<ToyDTO> getAllToys(Pageable pageable);
-    ToyDTO updateToy(Long id, ToyDTO toyDTO);
+    Page<ToyDTO> getAllToys(Pageable pagedToys);
+    ToyDTO updateToy(ToyDTO toyDTO);
     void deleteToy(Long id);
     
 }

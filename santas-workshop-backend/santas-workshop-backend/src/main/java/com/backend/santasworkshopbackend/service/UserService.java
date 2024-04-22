@@ -10,8 +10,8 @@ public interface UserService {
 
     UserDTO createUser(UserDTO userDTO);
     UserDTO getUser(Long id);
-    Page<UserDTO> getUsers(Pageable pageable);
-    UserDTO updateUser(Long id, UserDTO userDTO);
+    Page<UserDTO> getUsers(Pageable pagedUsers);
+    UserDTO updateUser(UserDTO userDTO);
     void deleteUser(Long id);
     
 }

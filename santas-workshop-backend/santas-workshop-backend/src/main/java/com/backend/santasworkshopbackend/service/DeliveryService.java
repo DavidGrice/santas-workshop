@@ -11,7 +11,7 @@ public interface DeliveryService {
     DeliveryDTO createDelivery(DeliveryDTO deliveryDTO);
     DeliveryDTO getDelivery(Long id);
     Page<DeliveryDTO> getAllDeliveries(Pageable pageable);
-    DeliveryDTO updateDelivery(Long id, DeliveryDTO deliveryDTO);
+    DeliveryDTO updateDelivery(DeliveryDTO deliveryDTO);
     void deleteDelivery(Long id);
     
 }

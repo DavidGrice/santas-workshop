@@ -24,4 +24,14 @@ public class Description {
     private String description;
 
     // getters and setters...
+    public Description(Description description, boolean shallow) {
+        if (description != null) {
+            this.id = description.getId();
+            this.name = description.getName();
+            this.description = description.getDescription();
+        }
+    }
+
+    public Description() {
+    }
 }

@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.slf4j.Logger;
-
+import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.ChildDTO;
 import com.backend.santasworkshopbackend.entity.Child;
 import com.backend.santasworkshopbackend.entity.Location;
@@ -20,6 +20,7 @@ import com.backend.santasworkshopbackend.repository.ToyRepository;
 import com.backend.santasworkshopbackend.repository.UserRepository;
 import com.backend.santasworkshopbackend.service.ChildService;
 
+@Service
 public class ChildServiceImpl implements ChildService {
 
     private ChildRepository childRepository;

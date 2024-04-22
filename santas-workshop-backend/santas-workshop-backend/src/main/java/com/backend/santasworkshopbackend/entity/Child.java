@@ -30,7 +30,6 @@ public class Child {
     @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Id
     @Column(name = "status_type", nullable = false)
     private String statusType;
 

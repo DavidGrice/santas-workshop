@@ -46,9 +46,14 @@ public class ToyServiceImpl implements ToyService{
 
         Toy toy = new Toy();
 
-        Description description = modelMapper.map(toyDTO.getDescriptionId(), Description.class);
-        User addedBy = modelMapper.map(toyDTO.getAddedById(), User.class);
-        User updatedBy = modelMapper.map(toyDTO.getUpdatedById(), User.class);
+        Description description = descriptionRepository.findById(toyDTO.getDescriptionID())
+            .orElseThrow(() -> new RuntimeException("Description not found"));
+
+        User addedBy = userRepository.findById(toyDTO.getAddedById())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        User updatedBy = userRepository.findById(toyDTO.getUpdatedById())
+            .orElseThrow(() -> new RuntimeException("User not found"));
 
         description = descriptionRepository.save(description);
 
@@ -90,41 +95,23 @@ public class ToyServiceImpl implements ToyService{
     @Override
     public ToyDTO updateToy(ToyDTO toyDTO) {
 
-        Toy existingToy = toyRepository.findById(toyDTO.getId()).get();
-        existingToy.setName(toyDTO.getName());
+        Toy existingToy = toyRepository.findById(toyDTO.getId())
+            .orElseThrow(() -> new RuntimeException("Toy not found"));
 
-        Description description = descriptionRepository.findById(toyDTO.getDescriptionId().getId()).orElseGet(() -> {
-            Description newDescription = new Description();
-            newDescription.setId(toyDTO.getDescriptionId().getId());
-            newDescription.setDescription(toyDTO.getDescriptionId().getDescription());
-            return descriptionRepository.save(newDescription);
-        });
+
+        Description description = descriptionRepository.findById(toyDTO.getDescriptionID())
+            .orElseThrow(() -> new RuntimeException("Description not found"));
+
         existingToy.setDescription(description);
 
-        User addedByUser = userRepository.findById(toyDTO.getAddedById().getId()).orElseGet(() -> {
-            User newUser = new User();
-            newUser.setId(toyDTO.getAddedById().getId());
-            newUser.setFirstName(toyDTO.getAddedById().getFirstName());
-            newUser.setLastName(toyDTO.getAddedById().getLastName());
-            newUser.setEmail(toyDTO.getAddedById().getEmail());
-            newUser.setPassword(toyDTO.getAddedById().getPassword());
-            newUser.setRole(roleRepository.findById(toyDTO.getAddedById().getRoleId()).get());
-            return userRepository.save(newUser);
-        });
+        User addedByUser = userRepository.findById(toyDTO.getAddedById())
+            .orElseThrow(() -> new RuntimeException("User not found"));
         existingToy.setAddedBy(addedByUser);
 
         existingToy.setAddedDate(toyDTO.getAddedDate());
 
-        User createdByUser = userRepository.findById(toyDTO.getUpdatedById().getId()).orElseGet(() -> {
-            User newUser = new User();
-            newUser.setId(toyDTO.getAddedById().getId());
-            newUser.setFirstName(toyDTO.getAddedById().getFirstName());
-            newUser.setLastName(toyDTO.getAddedById().getLastName());
-            newUser.setEmail(toyDTO.getAddedById().getEmail());
-            newUser.setPassword(toyDTO.getAddedById().getPassword());
-            newUser.setRole(roleRepository.findById(toyDTO.getAddedById().getRoleId()).get());
-            return userRepository.save(newUser);
-        });
+        User createdByUser = userRepository.findById(toyDTO.getUpdatedById())
+            .orElseThrow(() -> new RuntimeException("User not found"));
         existingToy.setUpdatedBy(createdByUser);
 
         existingToy.setUpdatedDate(toyDTO.getUpdatedDate());

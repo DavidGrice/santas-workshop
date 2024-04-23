@@ -26,16 +26,18 @@ public class UserServiceImpl implements UserService {
     private static final Logger Logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
-        Logger.info(userDTO.getEmail() + " " + userDTO.getUserName() + " " + userDTO.getPassword() + " " + userDTO.getFirstName() + " " + userDTO.getLastName() + " " + userDTO.getRoleId());
+        Logger.info(userDTO.getEmail() + " " + userDTO.getUserName() + " " + userDTO.getPassword() + " " + userDTO.getFirstName() + " " + userDTO.getLastName() + " " + userDTO.getRoleID());
+        Role role = roleRepository.findById(userDTO.getRoleID())
+            .orElseThrow(() -> new RuntimeException("Role not found"));
         User user = modelMapper.map(userDTO, User.class);
-        Role role = roleRepository.findById(userDTO.getRoleId()).orElseThrow(() -> new RuntimeException("Role not found"));
         user.setRole(role);
         Logger.info(user.getEmail() + " " + user.getUserName() + " " + user.getPassword() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getRole());
         User savedUser = userRepository.save(user);
@@ -72,7 +74,7 @@ public class UserServiceImpl implements UserService {
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
 
-        Role role = modelMapper.map(user.getRoleId(), Role.class);
+        Role role = modelMapper.map(user.getRoleID(), Role.class);
         existingUser.setRole(role);
         
         User updateduser = userRepository.save(existingUser);

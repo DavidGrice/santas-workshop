@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Data
-@Table(name = "child")
+@Table(name = "children")
 public class Child {
 
     @Id
@@ -33,7 +33,7 @@ public class Child {
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
-    private Location location;
+    private Location locationID;
 
     // getters and setters...
     public Child(Child child, boolean shallow) {
@@ -43,7 +43,7 @@ public class Child {
             this.lastName = child.getLastName();
             this.age = child.getAge();
             this.statusID = child.getStatusID();
-            this.location = child.getLocation();
+            this.locationID = child.getLocationID();
         }
     }
     

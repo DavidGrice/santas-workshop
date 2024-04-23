@@ -23,16 +23,16 @@ public class ChildDTO {
     @JsonProperty("age")
     private Integer age;
     @JsonProperty("status_id")
-    private StatusDTO statusID;
+    private Long statusID;
     @JsonProperty("location_id")
-    private LocationDTO childLocation;
+    private Long locationID;
 
     public ChildDTO(Child child, boolean shallow) {
         this.id = child.getId();
         this.firstName = child.getFirstName();
         this.lastName = child.getLastName();
         this.age = child.getAge();
-        this.statusID = new StatusDTO(child.getStatusID(), true);
-        this.childLocation = new LocationDTO(child.getLocation(), true);
+        this.statusID = child.getStatusID().getId();
+        this.locationID = child.getLocationID().getId();
     }
 }

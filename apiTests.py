@@ -6,22 +6,95 @@ class TestAPI(unittest.TestCase):
     # replace with your Spring Boot app's URL
     BASE_URL = 'http://localhost:8080'
 
-    
-
-    #region User
-
-    def test_20_add_one_user(self):
-        response = requests.post(f'{self.BASE_URL}/api/user/createUser', json={
-            "email": "test@example.com",
-            "username": "testuser",
-            "password": "password123",
-            "firstName": "Test",
-            "lastName": "User",
-            "role_id": 1
+    def test_10_add_one_status(self):
+        response = requests.post(f'{self.BASE_URL}/api/status/createStatus', json={
+            "status_name": "Delivered",
+            "status_description": "Toy has been deliveredsd."
         })
         self.assertEqual(response.status_code, 201)
 
+    def test_11_get_one_status(self):
+        response = requests.get(f'{self.BASE_URL}/api/status/getStatus/1')
+        self.assertEqual(response.status_code, 200)
+
+    def test_12_get_statuses(self):
+        response = requests.get(f'{self.BASE_URL}/api/status/getAllStatuses')
+        self.assertEqual(response.status_code, 200)
+
+    def test_13_update_status(self):
+        response = requests.put(f'{self.BASE_URL}/api/status/updateStatus/1', json={
+            "status_name": "Delivered",
+            "status_description": "Toy has been delivered."
+        })
+        self.assertEqual(response.status_code, 200)
+
+    def test_15_add_one_location(self):
+        response = requests.post(f'{self.BASE_URL}/api/location/createLocation', json={
+            "address": "123 Main St",
+            "city": "Springfield",
+            "state_prov": "IL",
+            "country": "USA",
+            "region": "Midwest",
+            "latitude": 39.7817,
+            "longitude": -89.6500
+        })
+        self.assertEqual(response.status_code, 201)
+
+    def test_16_get_one_location(self):
+        response = requests.get(f'{self.BASE_URL}/api/location/getLocation/1')
+        self.assertEqual(response.status_code, 200)
+
+    def test_17_get_locations(self):
+        response = requests.get(f'{self.BASE_URL}/api/location/getAllLocations')
+        self.assertEqual(response.status_code, 200)
+
+    def test_18_update_location(self):
+        response = requests.put(f'{self.BASE_URL}/api/location/updateLocation/1', json={
+            "address": "123 Main St",
+            "city": "Springfield",
+            "state_prov": "MO",
+            "country": "USA",
+            "region": "Midwest",
+            "latitude": 39.7817,
+            "longitude": -89.6500
+        })
+        self.assertEqual(response.status_code, 200)
+
+   
+    
+    #region Delivery
+
+    def test_35_add_delivery(self):
+        response = requests.post(f'{self.BASE_URL}/api/deliveries/createDelivery', json={
+            "child_id": 1,
+            "location_id": 1,
+            "toy_id": 1,
+            "status_id": 1,
+            "delivered_date": "2021-12-01"
+        })
+        self.assertEqual(response.status_code, 201)
+
+    def test_36_get_delivery(self):
+        response = requests.get(f'{self.BASE_URL}/api/deliveries/getDelivery/2')
+        self.assertEqual(response.status_code, 200)
+
+    def test_37_get_all_deliveries(self):
+        response = requests.get(f'{self.BASE_URL}/api/deliveries/getAllDeliveries')
+        self.assertEqual(response.status_code, 200)
+    
+    def test_38_update_delivery(self):
+        response = requests.put(f'{self.BASE_URL}/api/deliveries/updateDelivery/2', json={
+            "child_id": 1,
+            "location_id": 1,
+            "toy_id": 1,
+            "status_id": 1,
+            "delivered_date": "2020-12-01"
+        })
+        self.assertEqual(response.status_code, 200)
+
+ 
     #endregion
+
 
     
     
@@ -45,6 +118,19 @@ if __name__ == '__main__':
     def test___5_delete_description(self):
         response = requests.delete(f'{self.BASE_URL}/api/description/deleteDescription/1')
         self.assertEqual(response.status_code, 200)
+
+    def test_29_delete_toy(self):
+        response = requests.delete(f'{self.BASE_URL}/api/toy/deleteToy/1')
+        self.assertEqual(response.status_code, 200)
+
+    def test__34_delete_child(self):
+        response = requests.delete(f'{self.BASE_URL}/api/child/deleteChild/1')
+        self.assertEqual(response.status_code, 200)
+
+    def test_39_delete_delivery(self):
+        response = requests.delete(f'{self.BASE_URL}/api/deliveries/deleteDelivery/1')
+        self.assertEqual(response.status_code, 200)
+
 
 
 #region Description
@@ -74,6 +160,7 @@ if __name__ == '__main__':
 
 
     #endregion
+
 
     #region Role
 
@@ -173,6 +260,21 @@ if __name__ == '__main__':
 
     #endregion
 
+        #region User
+
+    def test_20_add_one_user(self):
+        response = requests.post(f'{self.BASE_URL}/api/user/createUser', json={
+            "email": "test@example.com",
+            "username": "testuser",
+            "password": "password123",
+            "firstName": "Test",
+            "lastName": "User",
+            "role_id": 1
+        })
+        self.assertEqual(response.status_code, 201)
+
+    #endregion
+
 #region Toy
 
     def test_25_add_one_toy(self):
@@ -207,9 +309,7 @@ if __name__ == '__main__':
         })
         self.assertEqual(response.status_code, 200)
 
-    def test_29_delete_toy(self):
-        response = requests.delete(f'{self.BASE_URL}/api/toy/deleteToy/1')
-        self.assertEqual(response.status_code, 200)
+    
 
     #endregion
 
@@ -231,12 +331,12 @@ if __name__ == '__main__':
         self.assertEqual(response.status_code, 200)
 
     def test_32_get_children(self):
-        response = requests.get(f'{self.BASE_URL}/api/child')
+        response = requests.get(f'{self.BASE_URL}/api/child/getAllChildren')
         self.assertEqual(response.status_code, 200)
 
     def test_33_update_child(self):
         response = requests.put(f'{self.BASE_URL}/api/child/updateChild/1', json={
-            "name": "John",
+            "first_name": "John",
             "last_name": "Doe",
             "age": 7,
             "status_id": 1,
@@ -244,47 +344,11 @@ if __name__ == '__main__':
         })
         self.assertEqual(response.status_code, 200)
 
-    def test__34_delete_child(self):
-        response = requests.delete(f'{self.BASE_URL}/api/child/deleteChild/1')
-        self.assertEqual(response.status_code, 200)
 
-    #endregion
 
-    #region Delivery
+    #endregion 
 
-    def test_35_add_delivery(self):
-        response = requests.post(f'{self.BASE_URL}/api/deliveries/createDelivery', json={
-            "child_id": 1,
-            "location_id": 1,
-            "toy_id": 1,
-            "status_id": 1,
-            "delivered_date": "2021-12-01"
-        })
-        self.assertEqual(response.status_code, 201)
-
-    def test_36_get_delivery(self):
-        response = requests.get(f'{self.BASE_URL}/api/deliveries/getDelivery/1')
-        self.assertEqual(response.status_code, 200)
-
-    def test_37_get_all_deliveries(self):
-        response = requests.get(f'{self.BASE_URL}/api/deliveries/getAllDeliveries')
-        self.assertEqual(response.status_code, 200)
     
-    def test_38_update_delivery(self):
-        response = requests.put(f'{self.BASE_URL}/api/deliveries/updateDelivery/1', json={
-            "child_id": 1,
-            "location_id": 1,
-            "toy_id": 1,
-            "status_id": 1,
-            "delivered_date": "2020-12-01"
-        })
-        self.assertEqual(response.status_code, 200)
-
-    def test_39_delete_delivery(self):
-        response = requests.delete(f'{self.BASE_URL}/api/deliveries/deleteDelivery/1')
-        self.assertEqual(response.status_code, 200)
-
-    #endregion
 
 #region Delivery Filters
 

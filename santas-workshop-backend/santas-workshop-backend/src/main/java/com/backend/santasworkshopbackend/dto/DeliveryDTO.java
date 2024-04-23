@@ -17,23 +17,23 @@ public class DeliveryDTO {
 
     private Long id;
     @JsonProperty("child_id")
-    private ChildDTO childID;
+    private Long childID;
     @JsonProperty("location_id")
-    private LocationDTO locationID;
+    private Long locationID;
     @JsonProperty("toy_id")
-    private ToyDTO toyID;
+    private Long toyID;
     @JsonProperty("status_id")
-    private StatusDTO statusID;
+    private Long statusID;
     @JsonProperty("delivered_date")
     private Date deliveredDate;
 
     // Getters and setters
     public DeliveryDTO(Delivery delivery, boolean shallow) {
         this.id = delivery.getId();
-        this.childID = new ChildDTO(delivery.getChildID(), true);
-        this.locationID = new LocationDTO(delivery.getLocationID(), true);
-        this.toyID = new ToyDTO(delivery.getToyID(), true);
-        this.statusID = new StatusDTO(delivery.getStatusID(), true);
+        this.childID = delivery.getChildID().getId();
+        this.locationID = delivery.getLocationID().getId();
+        this.toyID = delivery.getToyID().getId();
+        this.statusID = delivery.getStatusID().getId();
         this.deliveredDate = delivery.getDeliveredDate();
     }
 }

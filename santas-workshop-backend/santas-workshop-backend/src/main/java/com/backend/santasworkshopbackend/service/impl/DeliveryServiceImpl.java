@@ -19,6 +19,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,19 +35,36 @@ public class DeliveryServiceImpl implements DeliveryService{
 
     private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
 
+    @Autowired
+    public DeliveryServiceImpl(DeliveryRepository deliveryRepository, ModelMapper modelMapper, StatusRepository statusRepository, ChildRepository childRepository, LocationRepository locationRepository, ToyRepository toyRepository) {
+        this.deliveryRepository = deliveryRepository;
+        this.modelMapper = modelMapper;
+        this.statusRepository = statusRepository;
+        this.childRepository = childRepository;
+        this.locationRepository = locationRepository;
+        this.toyRepository = toyRepository;
+    }
+
     @Override
     public DeliveryDTO createDelivery(DeliveryDTO deliveryDTO) {
         Delivery delivery = new Delivery();
 
-        Child child = modelMapper.map(deliveryDTO.getChildID(), Child.class);
-        Location location = modelMapper.map(deliveryDTO.getLocationID(), Location.class);
-        Toy toy = modelMapper.map(deliveryDTO.getToyID(), Toy.class);
-        Status status = modelMapper.map(deliveryDTO.getStatusID(), Status.class);
-
+        Child child = childRepository.findById(deliveryDTO.getChildID())
+            .orElseThrow(() -> new RuntimeException("Child not found"));
         delivery.setChildID(child);
+
+        Location location = locationRepository.findById(deliveryDTO.getLocationID())
+            .orElseThrow(() -> new RuntimeException("Location not found"));
         delivery.setLocationID(location);
+
+        Toy toy = toyRepository.findById(deliveryDTO.getToyID())
+            .orElseThrow(() -> new RuntimeException("Toy not found"));
         delivery.setToyID(toy);
+
+        Status status = statusRepository.findById(deliveryDTO.getStatusID())
+            .orElseThrow(() -> new RuntimeException("Status not found"));
         delivery.setStatusID(status);
+
         delivery.setDeliveredDate(deliveryDTO.getDeliveredDate());
 
         Delivery deliveryMade = deliveryRepository.save(delivery);
@@ -85,26 +103,24 @@ public class DeliveryServiceImpl implements DeliveryService{
             .orElseThrow(() -> new RuntimeException("Delivery not found"));
         existingDelivery.setDeliveredDate(deliveryDTO.getDeliveredDate());
 
-        Status status = statusRepository.findById(deliveryDTO.getStatusID().getId())
+        Status status = statusRepository.findById(deliveryDTO.getStatusID())
             .orElseThrow(() -> new RuntimeException("Status not found"));
         existingDelivery.setStatusID(status);
 
-        Child child = childRepository.findById(deliveryDTO.getChildID().getId())
+        Child child = childRepository.findById(deliveryDTO.getChildID())
             .orElseThrow(() -> new RuntimeException("Child not found"));
         existingDelivery.setChildID(child);
 
-        Location location = locationRepository.findById(deliveryDTO.getLocationID().getId())
+        Location location = locationRepository.findById(deliveryDTO.getLocationID())
             .orElseThrow(() -> new RuntimeException("Location not found"));
         existingDelivery.setLocationID(location);
 
-        Toy toy = toyRepository.findById(deliveryDTO.getToyID().getId())
+        Toy toy = toyRepository.findById(deliveryDTO.getToyID())
             .orElseThrow(() -> new RuntimeException("Toy not found"));
         existingDelivery.setToyID(toy);
 
-        deliveryRepository.save(existingDelivery);
-
-        DeliveryDTO updatedDelivery = modelMapper.map(existingDelivery, DeliveryDTO.class);
-        return updatedDelivery;
+        Delivery updatedDelivery = deliveryRepository.save(existingDelivery);
+        return modelMapper.map(updatedDelivery, DeliveryDTO.class);
     }
 
     @Override

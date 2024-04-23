@@ -20,13 +20,13 @@ public class ToyDTO {
     @JsonProperty("name")
     private String name;
     @JsonProperty("description_id")
-    private DescriptionDTO descriptionId; // Assuming Description entity has an id field
+    private Long descriptionID; // Assuming Description entity has an id field
     @JsonProperty("added_by")
-    private UserDTO addedById; // Assuming User entity has an id field
+    private Long addedById; // Assuming User entity has an id field
     @JsonProperty("added_date")
     private Date addedDate;
     @JsonProperty("updated_by")
-    private UserDTO updatedById; // Assuming User entity has an id field
+    private Long updatedById; // Assuming User entity has an id field
     @JsonProperty("updated_date")
     private Date updatedDate;
     @JsonProperty("quantity")
@@ -36,10 +36,10 @@ public class ToyDTO {
     public ToyDTO(Toy toy, boolean shallow) {
         this.id = toy.getId();
         this.name = toy.getName();
-        this.descriptionId = new DescriptionDTO(toy.getDescription(), true);
-        this.addedById = new UserDTO(toy.getAddedBy(), true);
+        this.descriptionID = toy.getDescription().getId();
+        this.addedById = toy.getAddedBy().getId();
         this.addedDate = toy.getAddedDate();
-        this.updatedById = new UserDTO(toy.getUpdatedBy(), true);
+        this.updatedById = toy.getUpdatedBy().getId();
         this.updatedDate = toy.getUpdatedDate();
         this.quantity = toy.getQuantity();
     }

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.slf4j.Logger;
@@ -14,16 +15,26 @@ import com.backend.santasworkshopbackend.entity.Location;
 import com.backend.santasworkshopbackend.entity.Status;
 import com.backend.santasworkshopbackend.repository.ChildRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
+import com.backend.santasworkshopbackend.repository.StatusRepository;
 import com.backend.santasworkshopbackend.service.ChildService;
 
 @Service
 public class ChildServiceImpl implements ChildService {
 
+    private StatusRepository statusRepository;
     private ChildRepository childRepository;
     private LocationRepository locationRepository;
     private ModelMapper modelMapper;
 
     private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
+
+    @Autowired
+    public ChildServiceImpl(ChildRepository childRepository, ModelMapper modelMapper, StatusRepository statusRepository, LocationRepository locationRepository) {
+        this.childRepository = childRepository;
+        this.modelMapper = modelMapper;
+        this.statusRepository = statusRepository;
+        this.locationRepository = locationRepository;
+    }
 
     @Override
     public ChildDTO createChild(ChildDTO childDTO) {
@@ -33,12 +44,13 @@ public class ChildServiceImpl implements ChildService {
         child.setLastName(childDTO.getLastName());
         child.setAge(childDTO.getAge());
 
-        Status status = modelMapper.map(childDTO.getStatusID(), Status.class);
+        Status status = statusRepository.findById(childDTO.getStatusID())
+            .orElseThrow(() -> new RuntimeException("Status not found"));
         child.setStatusID(status);
 
-        Location location = modelMapper.map(childDTO.getChildLocation(), Location.class);
-        location = locationRepository.save(location);
-        child.setLocation(location);
+        Location location = locationRepository.findById(childDTO.getLocationID())
+            .orElseThrow(() -> new RuntimeException("Location not found"));
+        child.setLocationID(location);
 
         child = childRepository.save(child);
 
@@ -69,26 +81,18 @@ public class ChildServiceImpl implements ChildService {
     public ChildDTO updateChild(ChildDTO childDTO) {
 
         Child existingChild = childRepository.findById(childDTO.getId())
-            .orElseThrow(() -> new RuntimeException("Delivery not found"));
+            .orElseThrow(() -> new RuntimeException("Child not found"));
         existingChild.setFirstName(childDTO.getFirstName());
         existingChild.setLastName(childDTO.getLastName());
         existingChild.setAge(childDTO.getAge());
 
-        Status status = modelMapper.map(childDTO.getStatusID(), Status.class);
+        Status status = statusRepository.findById(childDTO.getStatusID())
+            .orElseThrow(() -> new RuntimeException("Status not found"));
         existingChild.setStatusID(status);
 
-        Location location = locationRepository.findById(childDTO.getChildLocation().getId()).orElseGet(() -> {
-            Location newLocation = new Location();
-            newLocation.setAddress(childDTO.getChildLocation().getAddress());
-            newLocation.setCity(childDTO.getChildLocation().getCity());
-            newLocation.setStateProv(childDTO.getChildLocation().getStateProv());
-            newLocation.setCountry(childDTO.getChildLocation().getCountry());
-            newLocation.setRegion(childDTO.getChildLocation().getRegion());
-            newLocation.setLatitude(childDTO.getChildLocation().getLatitude());
-            newLocation.setLongitude(childDTO.getChildLocation().getLongitude());
-            return newLocation;
-        });
-        existingChild.setLocation(location);
+        Location location = locationRepository.findById(childDTO.getLocationID())
+            .orElseThrow(() -> new RuntimeException("Location not found"));
+        existingChild.setLocationID(location);
 
         Child updatedChild = childRepository.save(existingChild);
         return modelMapper.map(updatedChild, ChildDTO.class);

@@ -28,7 +28,6 @@ public class UserDTO {
     private String lastName;
     @JsonProperty("role_id")
     private Long roleID;
-
     // Getters and setters
     public UserDTO(User user, boolean shallow) {
         this.id = user.getId();
@@ -44,11 +43,11 @@ public class UserDTO {
         }
     }
 
-    public Long getRoleId() { // or public Integer getRoleId() {
+    public Long getRoleID() {
         return roleID;
     }
-
-    public void setRoleId(Long roleID) { // or public void setRoleId(Integer roleId) {
+    
+    public void setRole(Long roleID) {
         this.roleID = roleID;
     }
 }

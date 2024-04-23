@@ -2,14 +2,11 @@ package com.backend.santasworkshopbackend.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.backend.santasworkshopbackend.dto.DescriptionDTO;
 import com.backend.santasworkshopbackend.dto.ToyDTO;
 import com.backend.santasworkshopbackend.entity.Description;
 import com.backend.santasworkshopbackend.entity.Toy;
 import com.backend.santasworkshopbackend.entity.User;
-import com.backend.santasworkshopbackend.repository.DeliveryRepository;
 import com.backend.santasworkshopbackend.repository.DescriptionRepository;
-import com.backend.santasworkshopbackend.repository.LocationRepository;
 import com.backend.santasworkshopbackend.repository.RoleRepository;
 import com.backend.santasworkshopbackend.repository.ToyRepository;
 import com.backend.santasworkshopbackend.repository.UserRepository;
@@ -27,15 +24,22 @@ import org.springframework.data.domain.Pageable;
 @Service
 public class ToyServiceImpl implements ToyService{
 
-    private DeliveryRepository deliveryRepository;
     private DescriptionRepository descriptionRepository;
-    private LocationRepository locationRepository;
     private RoleRepository roleRepository;
     private ToyRepository toyRepository;
     private UserRepository userRepository;
     private ModelMapper modelMapper;
 
     private static final Logger Logger = LoggerFactory.getLogger(DescriptionServiceImpl.class);
+
+    @Autowired
+    public ToyServiceImpl(DescriptionRepository descriptionRepository, RoleRepository roleRepository, ToyRepository toyRepository, UserRepository userRepository, ModelMapper modelMapper) {
+        this.descriptionRepository = descriptionRepository;
+        this.roleRepository = roleRepository;
+        this.toyRepository = toyRepository;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public ToyDTO createToy(ToyDTO toyDTO) {
@@ -104,7 +108,7 @@ public class ToyServiceImpl implements ToyService{
             newUser.setLastName(toyDTO.getAddedById().getLastName());
             newUser.setEmail(toyDTO.getAddedById().getEmail());
             newUser.setPassword(toyDTO.getAddedById().getPassword());
-            newUser.setRoleID(roleRepository.findById(toyDTO.getAddedById().getRoleID().getId()).get());
+            newUser.setRole(roleRepository.findById(toyDTO.getAddedById().getRoleId()).get());
             return userRepository.save(newUser);
         });
         existingToy.setAddedBy(addedByUser);
@@ -118,7 +122,7 @@ public class ToyServiceImpl implements ToyService{
             newUser.setLastName(toyDTO.getAddedById().getLastName());
             newUser.setEmail(toyDTO.getAddedById().getEmail());
             newUser.setPassword(toyDTO.getAddedById().getPassword());
-            newUser.setRoleID(roleRepository.findById(toyDTO.getAddedById().getRoleID().getId()).get());
+            newUser.setRole(roleRepository.findById(toyDTO.getAddedById().getRoleId()).get());
             return userRepository.save(newUser);
         });
         existingToy.setUpdatedBy(createdByUser);

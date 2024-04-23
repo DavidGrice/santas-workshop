@@ -32,7 +32,7 @@ public class LocationController {
         return new ResponseEntity<>(createdLocation, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getLocation/{id}")
     public ResponseEntity<LocationDTO> getLocation(@PathVariable("id") Long id) {
         LocationDTO location = locationService.getLocation(id);
         return new ResponseEntity<>(location, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class LocationController {
         return new ResponseEntity<>(location, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateLocation/{id}")
     public ResponseEntity<LocationDTO> updateLocation(@Validated
                                                       @PathVariable("id") Long id,
                                                       @RequestBody LocationDTO location) {
@@ -54,7 +54,7 @@ public class LocationController {
         return new ResponseEntity<>(updatedLocation, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteLocation/{id}")
     public ResponseEntity<Map<String, String>> deleteLocation(@PathVariable("id") Long id) {
         locationService.deleteLocation(id);
         Map<String, String> response = new HashMap<>();

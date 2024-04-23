@@ -1,7 +1,12 @@
 package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Type;
 import org.springframework.data.geo.Point;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,22 +24,32 @@ public class Location {
     private Long id;
 
     @Column(name = "address", nullable = false)
+    @JsonProperty("address")
     private String address;
 
     @Column(name = "city", nullable = false)
+    @JsonProperty("city")
     private String city;
 
     @Column(name = "state_prov", nullable = false)
+    @JsonProperty("state_prov")
     private String stateProv;
 
     @Column(name = "country", nullable = false)
+    @JsonProperty("country")
     private String country;
 
     @Column(name = "region", nullable = false)
+    @JsonProperty("region")
     private String region;
-
-    @Column(name = "coordinates", nullable = false)
-    private Point coordinates; // This should be a Point type if your ORM supports it
+    
+    @Column(name = "latitude", nullable = false)
+    @JsonProperty("latitude")
+    private Double latitude;
+    
+    @Column(name = "longitude", nullable = false)
+    @JsonProperty("longitude")
+    private Double longitude;
 
     // getters and setters...
     public Location(Location location, boolean shallow) {
@@ -45,7 +60,8 @@ public class Location {
             this.stateProv = location.getStateProv();
             this.country = location.getCountry();
             this.region = location.getRegion();
-            this.coordinates = location.getCoordinates();
+            this.latitude = location.getLatitude();
+            this.longitude = location.getLongitude();
         }
     }
 

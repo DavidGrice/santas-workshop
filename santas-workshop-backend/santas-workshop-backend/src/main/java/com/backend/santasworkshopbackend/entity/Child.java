@@ -2,9 +2,6 @@ package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
 
-import com.backend.santasworkshopbackend.dto.ChildDTO;
-import com.backend.santasworkshopbackend.dto.LocationDTO;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,8 +27,9 @@ public class Child {
     @Column(name = "age", nullable = false)
     private Integer age;
 
-    @Column(name = "status_type", nullable = false)
-    private String statusType;
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Status statusID;
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
@@ -44,7 +42,7 @@ public class Child {
             this.firstName = child.getFirstName();
             this.lastName = child.getLastName();
             this.age = child.getAge();
-            this.statusType = child.getStatusType();
+            this.statusID = child.getStatusID();
             this.location = child.getLocation();
         }
     }

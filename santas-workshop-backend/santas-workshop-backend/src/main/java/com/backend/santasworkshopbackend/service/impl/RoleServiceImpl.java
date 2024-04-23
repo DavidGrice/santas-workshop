@@ -4,14 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.backend.santasworkshopbackend.dto.RoleDTO;
 import com.backend.santasworkshopbackend.entity.Role;
-import com.backend.santasworkshopbackend.entity.User;
-import com.backend.santasworkshopbackend.repository.ChildRepository;
-import com.backend.santasworkshopbackend.repository.DeliveryRepository;
-import com.backend.santasworkshopbackend.repository.DescriptionRepository;
-import com.backend.santasworkshopbackend.repository.LocationRepository;
 import com.backend.santasworkshopbackend.repository.RoleRepository;
-import com.backend.santasworkshopbackend.repository.ToyRepository;
-import com.backend.santasworkshopbackend.repository.UserRepository;
 import com.backend.santasworkshopbackend.service.RoleService;
 
 import java.util.Optional;
@@ -26,24 +19,20 @@ import org.springframework.data.domain.Pageable;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    private ChildRepository childRepository;
-    private DeliveryRepository deliveryRepository;
-    private DescriptionRepository descriptionRepository;
-    private LocationRepository locationRepository;
     private RoleRepository roleRepository;
-    private ToyRepository toyRepository;
-    private UserRepository userRepository;
     private ModelMapper modelMapper;
 
-    private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
+    private static final Logger Logger = LoggerFactory.getLogger(RoleServiceImpl.class);
+
+    @Autowired
+    public RoleServiceImpl(RoleRepository roleRepository, ModelMapper modelMapper) {
+        this.roleRepository = roleRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public RoleDTO createRole(RoleDTO roleDTO) {
-        Role role = new Role();
-        
-        role.setRoleName(roleDTO.getRoleName());
-        role.setRoleDescription(roleDTO.getRoleDescription());
-
+        Role role = modelMapper.map(roleDTO, Role.class);
         Role savedRole = roleRepository.save(role);
         RoleDTO createdRole = modelMapper.map(savedRole, RoleDTO.class);
         return createdRole;
@@ -73,15 +62,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleDTO updateRole(RoleDTO roleDTO) {
-        Role role = new Role();
+    public RoleDTO updateRole(RoleDTO role) {
+        Role exisitingRole = roleRepository.findById(role.getId())
+            .orElseThrow(() -> new RuntimeException("Description not found"));
 
-        role.setRoleName(roleDTO.getRoleName());
-        role.setRoleDescription(roleDTO.getRoleDescription());
-
-        Role updatedRole = roleRepository.save(role);
-        RoleDTO updatedRoleDTO = modelMapper.map(updatedRole, RoleDTO.class);
-        return updatedRoleDTO;
+        exisitingRole.setRoleName(role.getRoleName());
+        exisitingRole.setRoleDescription(role.getRoleDescription());
+        Role updatedRole = roleRepository.save(exisitingRole);
+        return modelMapper.map(updatedRole, RoleDTO.class);
     }
 
     @Override

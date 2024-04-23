@@ -1,6 +1,9 @@
 package com.backend.santasworkshopbackend.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,9 +21,11 @@ public class Role {
     private Long id;
 
     @Column(name = "role_name", nullable = false)
+    @JsonProperty("role_name")
     private String roleName;
 
     @Column(name = "role_description", nullable = false)
+    @JsonProperty("role_description")
     private String roleDescription;
 
     // getters and setters...

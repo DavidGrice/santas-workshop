@@ -11,25 +11,16 @@ import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.ChildDTO;
 import com.backend.santasworkshopbackend.entity.Child;
 import com.backend.santasworkshopbackend.entity.Location;
+import com.backend.santasworkshopbackend.entity.Status;
 import com.backend.santasworkshopbackend.repository.ChildRepository;
-import com.backend.santasworkshopbackend.repository.DeliveryRepository;
-import com.backend.santasworkshopbackend.repository.DescriptionRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
-import com.backend.santasworkshopbackend.repository.RoleRepository;
-import com.backend.santasworkshopbackend.repository.ToyRepository;
-import com.backend.santasworkshopbackend.repository.UserRepository;
 import com.backend.santasworkshopbackend.service.ChildService;
 
 @Service
 public class ChildServiceImpl implements ChildService {
 
     private ChildRepository childRepository;
-    private DeliveryRepository deliveryRepository;
-    private DescriptionRepository descriptionRepository;
     private LocationRepository locationRepository;
-    private RoleRepository roleRepository;
-    private ToyRepository toyRepository;
-    private UserRepository userRepository;
     private ModelMapper modelMapper;
 
     private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
@@ -41,7 +32,9 @@ public class ChildServiceImpl implements ChildService {
         child.setFirstName(childDTO.getFirstName());
         child.setLastName(childDTO.getLastName());
         child.setAge(childDTO.getAge());
-        child.setStatusType(childDTO.getStatusType());
+
+        Status status = modelMapper.map(childDTO.getStatusID(), Status.class);
+        child.setStatusID(status);
 
         Location location = modelMapper.map(childDTO.getChildLocation(), Location.class);
         location = locationRepository.save(location);
@@ -75,11 +68,14 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public ChildDTO updateChild(ChildDTO childDTO) {
 
-        Child existingChild = childRepository.findById(childDTO.getId()).get();
+        Child existingChild = childRepository.findById(childDTO.getId())
+            .orElseThrow(() -> new RuntimeException("Delivery not found"));
         existingChild.setFirstName(childDTO.getFirstName());
         existingChild.setLastName(childDTO.getLastName());
         existingChild.setAge(childDTO.getAge());
-        existingChild.setStatusType(childDTO.getStatusType());
+
+        Status status = modelMapper.map(childDTO.getStatusID(), Status.class);
+        existingChild.setStatusID(status);
 
         Location location = locationRepository.findById(childDTO.getChildLocation().getId()).orElseGet(() -> {
             Location newLocation = new Location();
@@ -88,7 +84,8 @@ public class ChildServiceImpl implements ChildService {
             newLocation.setStateProv(childDTO.getChildLocation().getStateProv());
             newLocation.setCountry(childDTO.getChildLocation().getCountry());
             newLocation.setRegion(childDTO.getChildLocation().getRegion());
-            newLocation.setCoordinates(childDTO.getChildLocation().getCoordinates());
+            newLocation.setLatitude(childDTO.getChildLocation().getLatitude());
+            newLocation.setLongitude(childDTO.getChildLocation().getLongitude());
             return newLocation;
         });
         existingChild.setLocation(location);

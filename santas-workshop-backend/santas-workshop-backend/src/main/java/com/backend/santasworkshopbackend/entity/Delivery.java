@@ -26,14 +26,15 @@ public class Delivery {
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
-    private Location locationId;
+    private Location locationID;
 
     @ManyToOne
     @JoinColumn(name = "toy_id", nullable = false)
-    private Toy toyId;
+    private Toy toyID;
 
-    @Column(name = "status_type", nullable = false)
-    private String statusType;
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Status statusID;
 
     @Column(name = "delivered_date", nullable = false)
     private Date deliveredDate;
@@ -43,9 +44,9 @@ public class Delivery {
         if (delivery != null) {
             this.id = delivery.getId();
             this.childID = delivery.getChildID();
-            this.locationId = delivery.getLocationId();
-            this.toyId = delivery.getToyId();
-            this.statusType = delivery.getStatusType();
+            this.locationID = delivery.getLocationID();
+            this.toyID = delivery.getToyID();
+            this.statusID = delivery.getStatusID();
             this.deliveredDate = delivery.getDeliveredDate();
         }
     }

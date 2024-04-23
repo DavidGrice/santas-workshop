@@ -32,7 +32,7 @@ public class ChildController {
         return new ResponseEntity<>(createdChild, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getChild/{id}")
     public ResponseEntity<ChildDTO> getChild(@PathVariable("id") Long id) {
         ChildDTO child = childService.getChild(id);
         return new ResponseEntity<>(child, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class ChildController {
         return new ResponseEntity<>(child, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateChild/{id}")
     public ResponseEntity<ChildDTO> updateChild(@Validated
                                                 @PathVariable("id") Long id,
                                                 @RequestBody ChildDTO child) {
@@ -54,7 +54,7 @@ public class ChildController {
         return new ResponseEntity<>(updatedChild, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteChild/{id}")
     public ResponseEntity<Map<String, String>> deleteChild(@PathVariable("id") Long id) {
         childService.deleteChild(id);
         Map<String, String> response = new HashMap<>();

@@ -34,7 +34,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
-    private Role roleID;
+    private Role role;
 
     // getters and setters...
     public User(User user, boolean shallow) {
@@ -45,7 +45,7 @@ public class User {
             this.password = user.getPassword();
             this.firstName = user.getFirstName();
             this.lastName = user.getLastName();
-            this.roleID = user.getRoleID();
+            this.role = user.getRole();
         }
     }
 

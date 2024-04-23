@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 @Setter
@@ -16,12 +17,20 @@ import lombok.AllArgsConstructor;
 public class LocationDTO {
 
     private Long id;
+    @JsonProperty("address")
     private String address;
+    @JsonProperty("city")
     private String city;
+    @JsonProperty("state_prov")
     private String stateProv;
+    @JsonProperty("country")
     private String country;
+    @JsonProperty("region")
     private String region;
-    private Point coordinates; // This should be a Point type if your ORM supports it
+    @JsonProperty("latitude")
+    private Double latitude;
+    @JsonProperty("longitude")
+    private Double longitude;
 
     // Getters and setters
     public LocationDTO(Location location, boolean shallow) {
@@ -31,6 +40,7 @@ public class LocationDTO {
         this.stateProv = location.getStateProv();
         this.country = location.getCountry();
         this.region = location.getRegion();
-        this.coordinates = location.getCoordinates();
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
     }
 }

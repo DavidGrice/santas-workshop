@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS descriptions;
+DROP TABLE IF EXISTS statuses;
 
 CREATE TABLE descriptions (
     id SERIAL PRIMARY KEY,
@@ -18,6 +19,12 @@ CREATE TABLE roles (
     role_description VARCHAR(255)
 );
 
+CREATE TABLE statuses (
+    id SERIAL PRIMARY KEY,
+    status_name VARCHAR(255) NOT NULL,
+    status_description VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE locations (
     id SERIAL PRIMARY KEY,
     address VARCHAR(255),
@@ -25,7 +32,8 @@ CREATE TABLE locations (
     state_prov VARCHAR(100),
     country VARCHAR(100),
     region VARCHAR(100),
-    coordinates POINT
+    latitude DOUBLE PRECISION,
+	longitude DOUBLE PRECISION
 );
 
 CREATE TABLE users (
@@ -35,8 +43,8 @@ CREATE TABLE users (
     username VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role INTEGER,
-    FOREIGN KEY (role) REFERENCES roles(id) ON DELETE SET NULL
+    role_id BIGINT,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE SET NULL
 );
 
 CREATE TABLE toys (
@@ -58,9 +66,10 @@ CREATE TABLE children (
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
     age INTEGER,
-    status_type VARCHAR(100),
+    status_id INTEGER,
     location_id INTEGER,
-    FOREIGN KEY (location_id) REFERENCES locations(id)
+    FOREIGN KEY (location_id) REFERENCES locations(id),
+    FOREIGN KEY (status_id) REFERENCES statuses(id)
 );
 
 CREATE TABLE deliveries (
@@ -68,9 +77,19 @@ CREATE TABLE deliveries (
     child_id INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
     toy_id INTEGER NOT NULL,
-    status_type VARCHAR(100),
+    status_id INTEGER,
     delivered_date DATE,
     FOREIGN KEY (child_id) REFERENCES children(id),
     FOREIGN KEY (location_id) REFERENCES locations(id),
-    FOREIGN KEY (toy_id) REFERENCES toys(id)
+    FOREIGN KEY (toy_id) REFERENCES toys(id),
+    FOREIGN KEY (status_id) REFERENCES statuses(id)
 );
+
+SELECT * FROM descriptions;
+SELECT * FROM roles;
+SELECT * FROM statuses;
+SELECT * FROM locations;
+SELECT * FROM users;
+SELECT * FROM toys;
+SELECT * FROM children;
+SELECT * FROM deliveries;

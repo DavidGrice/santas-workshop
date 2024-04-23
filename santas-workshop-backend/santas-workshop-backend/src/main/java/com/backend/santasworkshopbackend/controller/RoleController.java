@@ -3,6 +3,8 @@ package com.backend.santasworkshopbackend.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +34,7 @@ public class RoleController {
         return new ResponseEntity<>(createdRole, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getRole/{id}")
     public ResponseEntity<RoleDTO> getRole(@PathVariable("id") Long id) {
         RoleDTO role = roleService.getRole(id);
         return new ResponseEntity<>(role, HttpStatus.OK);
@@ -44,7 +46,7 @@ public class RoleController {
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateRole/{id}")
     public ResponseEntity<RoleDTO> updateRole(@Validated
                                               @PathVariable("id") Long id,
                                               @RequestBody RoleDTO role) {
@@ -54,7 +56,7 @@ public class RoleController {
         return new ResponseEntity<>(updatedRole, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteRole/{id}")
     public ResponseEntity<Map<String, String>> deleteRole(@PathVariable("id") Long id) {
         roleService.deleteRole(id);
         Map<String, String> response = new HashMap<>();

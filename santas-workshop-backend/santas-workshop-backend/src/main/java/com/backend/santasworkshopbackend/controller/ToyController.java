@@ -15,7 +15,7 @@ import com.backend.santasworkshopbackend.dto.ToyDTO;
 import com.backend.santasworkshopbackend.service.ToyService;
 
 @RestController
-@RequestMapping("/api/toys")
+@RequestMapping("/api/toy")
 public class ToyController {
 
     private final ToyService toyService;
@@ -32,7 +32,7 @@ public class ToyController {
         return new ResponseEntity<>(createdToy, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getToy/{id}")
     public ResponseEntity<ToyDTO> getToy(@PathVariable("id") Long id) {
         ToyDTO toy = toyService.getToy(id);
         return new ResponseEntity<>(toy, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class ToyController {
         return new ResponseEntity<>(toy, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateToy/{id}")
     public ResponseEntity<ToyDTO> updateToy(@Validated
                                             @PathVariable("id") Long id,
                                             @RequestBody ToyDTO toy) {
@@ -54,7 +54,7 @@ public class ToyController {
         return new ResponseEntity<>(updatedToy, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteToy/{id}")
     public ResponseEntity<Map<String, String>> deleteToy(@PathVariable("id") Long id) {
         toyService.deleteToy(id);
         Map<String, String> response = new HashMap<>();

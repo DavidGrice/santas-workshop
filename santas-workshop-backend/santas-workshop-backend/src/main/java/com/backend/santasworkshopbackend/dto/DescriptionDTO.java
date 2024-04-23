@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+
 import com.backend.santasworkshopbackend.entity.Description;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 @Getter
@@ -14,7 +16,9 @@ import lombok.AllArgsConstructor;
 public class DescriptionDTO {
 
     private Long id;
+    @JsonProperty("name")
     private String name;
+    @JsonProperty("description")
     private String description;
 
     // Getters and setters

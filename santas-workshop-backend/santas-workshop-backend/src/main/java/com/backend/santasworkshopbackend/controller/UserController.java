@@ -15,7 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -32,7 +32,7 @@ public class UserController {
         return new ResponseEntity<UserDTO>(createdUser, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getUser/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
         UserDTO user = userService.getUser(id);
         return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateUser/{id}")
     public ResponseEntity<UserDTO> updateUser(@Validated
                                               @PathVariable("id") Long id,
                                               @RequestBody UserDTO user) {
@@ -53,7 +53,7 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         Map<String, String> response = new HashMap<>();

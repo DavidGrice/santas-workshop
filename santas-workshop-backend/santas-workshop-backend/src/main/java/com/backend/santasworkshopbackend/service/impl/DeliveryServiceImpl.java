@@ -4,17 +4,14 @@ import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.DeliveryDTO;
 import com.backend.santasworkshopbackend.entity.Child;
 import com.backend.santasworkshopbackend.entity.Delivery;
-import com.backend.santasworkshopbackend.entity.Description;
 import com.backend.santasworkshopbackend.entity.Location;
-import com.backend.santasworkshopbackend.entity.Role;
+import com.backend.santasworkshopbackend.entity.Status;
 import com.backend.santasworkshopbackend.entity.Toy;
 import com.backend.santasworkshopbackend.repository.ChildRepository;
 import com.backend.santasworkshopbackend.repository.DeliveryRepository;
-import com.backend.santasworkshopbackend.repository.DescriptionRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
-import com.backend.santasworkshopbackend.repository.RoleRepository;
+import com.backend.santasworkshopbackend.repository.StatusRepository;
 import com.backend.santasworkshopbackend.repository.ToyRepository;
-import com.backend.santasworkshopbackend.repository.UserRepository;
 import com.backend.santasworkshopbackend.service.DeliveryService;
 
 import java.util.Optional;
@@ -22,21 +19,17 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService{
 
+    private StatusRepository statusRepository;
     private ChildRepository childRepository;
     private DeliveryRepository deliveryRepository;
-    private DescriptionRepository descriptionRepository;
     private LocationRepository locationRepository;
-    private RoleRepository roleRepository;
     private ToyRepository toyRepository;
-    private UserRepository userRepository;
     private ModelMapper modelMapper;
 
     private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
@@ -46,13 +39,14 @@ public class DeliveryServiceImpl implements DeliveryService{
         Delivery delivery = new Delivery();
 
         Child child = modelMapper.map(deliveryDTO.getChildID(), Child.class);
-        Location location = modelMapper.map(deliveryDTO.getLocationId(), Location.class);
-        Toy toy = modelMapper.map(deliveryDTO.getToyId(), Toy.class);
+        Location location = modelMapper.map(deliveryDTO.getLocationID(), Location.class);
+        Toy toy = modelMapper.map(deliveryDTO.getToyID(), Toy.class);
+        Status status = modelMapper.map(deliveryDTO.getStatusID(), Status.class);
 
         delivery.setChildID(child);
-        delivery.setLocationId(location);
-        delivery.setToyId(toy);
-        delivery.setStatusType(deliveryDTO.getStatusType());
+        delivery.setLocationID(location);
+        delivery.setToyID(toy);
+        delivery.setStatusID(status);
         delivery.setDeliveredDate(deliveryDTO.getDeliveredDate());
 
         Delivery deliveryMade = deliveryRepository.save(delivery);
@@ -87,18 +81,25 @@ public class DeliveryServiceImpl implements DeliveryService{
 
     @Override
     public DeliveryDTO updateDelivery(DeliveryDTO deliveryDTO) {
-        Delivery existingDelivery = deliveryRepository.findById(deliveryDTO.getId()).get();
-        existingDelivery.setStatusType(deliveryDTO.getStatusType());
+        Delivery existingDelivery = deliveryRepository.findById(deliveryDTO.getId())
+            .orElseThrow(() -> new RuntimeException("Delivery not found"));
         existingDelivery.setDeliveredDate(deliveryDTO.getDeliveredDate());
 
-        Child child = childRepository.findById(deliveryDTO.getChildID().getId()).get();
+        Status status = statusRepository.findById(deliveryDTO.getStatusID().getId())
+            .orElseThrow(() -> new RuntimeException("Status not found"));
+        existingDelivery.setStatusID(status);
+
+        Child child = childRepository.findById(deliveryDTO.getChildID().getId())
+            .orElseThrow(() -> new RuntimeException("Child not found"));
         existingDelivery.setChildID(child);
 
-        Location location = locationRepository.findById(deliveryDTO.getLocationId().getId()).get();
-        existingDelivery.setLocationId(location);
+        Location location = locationRepository.findById(deliveryDTO.getLocationID().getId())
+            .orElseThrow(() -> new RuntimeException("Location not found"));
+        existingDelivery.setLocationID(location);
 
-        Toy toy = toyRepository.findById(deliveryDTO.getToyId().getId()).get();
-        existingDelivery.setToyId(toy);
+        Toy toy = toyRepository.findById(deliveryDTO.getToyID().getId())
+            .orElseThrow(() -> new RuntimeException("Toy not found"));
+        existingDelivery.setToyID(toy);
 
         deliveryRepository.save(existingDelivery);
 

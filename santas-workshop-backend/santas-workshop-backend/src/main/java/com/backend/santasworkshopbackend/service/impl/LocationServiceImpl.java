@@ -4,12 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.backend.santasworkshopbackend.dto.LocationDTO;
 import com.backend.santasworkshopbackend.entity.Location;
-import com.backend.santasworkshopbackend.repository.DeliveryRepository;
-import com.backend.santasworkshopbackend.repository.DescriptionRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
-import com.backend.santasworkshopbackend.repository.RoleRepository;
-import com.backend.santasworkshopbackend.repository.ToyRepository;
-import com.backend.santasworkshopbackend.repository.UserRepository;
 import com.backend.santasworkshopbackend.service.LocationService;
 
 import java.util.Optional;
@@ -17,32 +12,34 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    private DeliveryRepository deliveryRepository;
-    private DescriptionRepository descriptionRepository;
     private LocationRepository locationRepository;
-    private RoleRepository roleRepository;
-    private ToyRepository toyRepository;
-    private UserRepository userRepository;
     private ModelMapper modelMapper;
 
-    private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
+    private static final Logger Logger = LoggerFactory.getLogger(LocationServiceImpl.class);
+
+    @Autowired
+    public LocationServiceImpl(LocationRepository locationRepository, ModelMapper modelMapper) {
+        this.locationRepository = locationRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public LocationDTO createLocation(LocationDTO locationDTO) {
         Location location = new Location();
-
         location.setAddress(locationDTO.getAddress());
         location.setCity(locationDTO.getCity());
         location.setStateProv(locationDTO.getStateProv());
         location.setCountry(locationDTO.getCountry());
         location.setRegion(locationDTO.getRegion());
-        location.setCoordinates(locationDTO.getCoordinates());
+        location.setLatitude(locationDTO.getLatitude());
+        location.setLongitude(locationDTO.getLongitude());
 
         Location savedLocation = locationRepository.save(location);
         LocationDTO createdLocation = modelMapper.map(savedLocation, LocationDTO.class);
@@ -72,17 +69,19 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public LocationDTO updateLocation(LocationDTO locationDTO) {
-        Location location = new Location();
+    public LocationDTO updateLocation(LocationDTO location) {
+        Location exisitingLocation = locationRepository.findById(location.getId())
+            .orElseThrow(() -> new RuntimeException("Description not found"));
 
-        location.setAddress(locationDTO.getAddress());
-        location.setCity(locationDTO.getCity());
-        location.setStateProv(locationDTO.getStateProv());
-        location.setCountry(locationDTO.getCountry());
-        location.setRegion(locationDTO.getRegion());
-        location.setCoordinates(locationDTO.getCoordinates());
+        exisitingLocation.setAddress(location.getAddress());
+        exisitingLocation.setCity(location.getCity());
+        exisitingLocation.setStateProv(location.getStateProv());
+        exisitingLocation.setCountry(location.getCountry());
+        exisitingLocation.setRegion(location.getRegion());
+        exisitingLocation.setLatitude(location.getLatitude());
+        exisitingLocation.setLongitude(location.getLongitude());
 
-        Location updatedLocation = locationRepository.save(location);
+        Location updatedLocation = locationRepository.save(exisitingLocation);
         LocationDTO updatedLocationDTO = modelMapper.map(updatedLocation, LocationDTO.class);
         return updatedLocationDTO;
     }

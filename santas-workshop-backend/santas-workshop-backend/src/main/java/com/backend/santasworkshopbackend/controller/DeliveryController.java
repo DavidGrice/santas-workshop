@@ -31,7 +31,7 @@ public class DeliveryController {
         return new ResponseEntity<>(createdDelivery, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getDelivery/{id}")
     public ResponseEntity<DeliveryDTO> getDelivery(@PathVariable("id") Long id) {
         DeliveryDTO delivery = deliveryService.getDelivery(id);
         return new ResponseEntity<>(delivery, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class DeliveryController {
         return new ResponseEntity<>(delivery, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateDelivery/{id}")
     public ResponseEntity<DeliveryDTO> updateDelivery(@Validated
                                                       @PathVariable("id") Long id,
                                                       @RequestBody DeliveryDTO delivery) {
@@ -53,7 +53,7 @@ public class DeliveryController {
         return new ResponseEntity<>(updatedDelivery, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteDelivery/{id}")
     public ResponseEntity <Map<String, String>> deleteDelivery(@PathVariable Long id) {
         deliveryService.deleteDelivery(id);
         Map<String, String> response = Map.of("message", "Delivery deleted successfully");

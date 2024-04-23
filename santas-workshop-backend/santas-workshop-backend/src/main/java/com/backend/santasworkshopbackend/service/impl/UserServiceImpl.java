@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.UserDTO;
 import com.backend.santasworkshopbackend.entity.Role;
 import com.backend.santasworkshopbackend.entity.User;
+import com.backend.santasworkshopbackend.repository.RoleRepository;
 import com.backend.santasworkshopbackend.repository.UserRepository;
 
 import java.util.Optional;
@@ -18,20 +19,25 @@ import com.backend.santasworkshopbackend.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private RoleRepository roleRepository;
     private UserRepository userRepository;
     private ModelMapper modelMapper;
 
     private static final Logger Logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    // @Autowired
-    // public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
-    //     this.userRepository = userRepository;
-    //     this.modelMapper = modelMapper;
-    // }
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+        Logger.info(userDTO.getEmail() + " " + userDTO.getUserName() + " " + userDTO.getPassword() + " " + userDTO.getFirstName() + " " + userDTO.getLastName() + " " + userDTO.getRoleId());
         User user = modelMapper.map(userDTO, User.class);
+        Role role = roleRepository.findById(userDTO.getRoleId()).orElseThrow(() -> new RuntimeException("Role not found"));
+        user.setRole(role);
+        Logger.info(user.getEmail() + " " + user.getUserName() + " " + user.getPassword() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getRole());
         User savedUser = userRepository.save(user);
         UserDTO savedUserDTO = modelMapper.map(savedUser, UserDTO.class);
         return savedUserDTO;
@@ -66,8 +72,8 @@ public class UserServiceImpl implements UserService {
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
 
-        Role role = modelMapper.map(user.getRoleID(), Role.class);
-        existingUser.setRoleID(role);
+        Role role = modelMapper.map(user.getRoleId(), Role.class);
+        existingUser.setRole(role);
         
         User updateduser = userRepository.save(existingUser);
         return modelMapper.map(updateduser, UserDTO.class);

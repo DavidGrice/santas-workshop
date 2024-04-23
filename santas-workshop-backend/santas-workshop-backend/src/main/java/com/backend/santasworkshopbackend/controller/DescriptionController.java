@@ -32,7 +32,7 @@ public class DescriptionController {
         return new ResponseEntity<>(createdDescription, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getDescription/{id}")
     public ResponseEntity<DescriptionDTO> getDescription(@PathVariable("id") Long id) {
         DescriptionDTO description = descriptionService.getDescription(id);
         return new ResponseEntity<>(description, HttpStatus.OK);
@@ -44,7 +44,7 @@ public class DescriptionController {
         return new ResponseEntity<>(description, HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/updateDescription/{id}")
     public ResponseEntity<DescriptionDTO> updateDescription(@Validated
                                                             @PathVariable("id") Long id,
                                                             @RequestBody DescriptionDTO description) {
@@ -54,7 +54,7 @@ public class DescriptionController {
         return new ResponseEntity<>(updatedDescription, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteDescription/{id}")
     public ResponseEntity<Map<String, String>> deleteDescription(@PathVariable("id") Long id) {
         descriptionService.deleteDescription(id);
         Map<String, String> response = new HashMap<>();

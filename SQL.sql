@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS deliveries;
+DROP TABLE IF EXISTS wishlists;
 DROP TABLE IF EXISTS toys;
 DROP TABLE IF EXISTS children;
 DROP TABLE IF EXISTS locations;
@@ -6,6 +7,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS descriptions;
 DROP TABLE IF EXISTS statuses;
+
 
 CREATE TABLE descriptions (
     id SERIAL PRIMARY KEY,
@@ -30,6 +32,7 @@ CREATE TABLE locations (
     address VARCHAR(255),
     city VARCHAR(100),
     state_prov VARCHAR(100),
+    zip_code VARCHAR(100),
     country VARCHAR(100),
     region VARCHAR(100),
     latitude DOUBLE PRECISION,
@@ -72,6 +75,12 @@ CREATE TABLE children (
     FOREIGN KEY (status_id) REFERENCES statuses(id)
 );
 
+CREATE TABLE wishlists (
+    id SERIAL PRIMARY KEY,
+    child_id INTEGER REFERENCES children(id),
+    toy_id INTEGER REFERENCES toys(id)
+);
+
 CREATE TABLE deliveries (
     id SERIAL PRIMARY KEY,
     child_id INTEGER NOT NULL,
@@ -93,3 +102,7 @@ SELECT * FROM users;
 SELECT * FROM toys;
 SELECT * FROM children;
 SELECT * FROM deliveries;
+SELECT * FROM wishlists;
+
+INSERT INTO roles (id, role_name, role_description) VALUES (1, 'Admin', 'Administrator Role');
+INSERT INTO roles (id, role_name, role_description) VALUES (2, 'Guest', 'Guest Role');

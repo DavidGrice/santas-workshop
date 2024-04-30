@@ -39,4 +39,12 @@ public class Role {
 
     public Role() {
     }
+
+    public String getRoleName() {
+        return this.roleName;
+    }
+    
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 }

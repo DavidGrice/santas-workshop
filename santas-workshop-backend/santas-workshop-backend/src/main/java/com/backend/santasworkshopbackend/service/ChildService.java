@@ -14,5 +14,6 @@ public interface ChildService {
     Page<ChildDTO> getAllChildren(Pageable pagedChild);
     ChildDTO updateChild(ChildDTO childDTO);
     void deleteChild(Long id);
+    Page<ChildDTO> searchChildren(String firstName, String lastName, Integer age, Long statusID, Long locationId, Pageable pagedChild);
     
 }

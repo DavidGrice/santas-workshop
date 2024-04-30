@@ -35,6 +35,10 @@ public class Location {
     @JsonProperty("state_prov")
     private String stateProv;
 
+    @Column(name = "zip_code", nullable = false)
+    @JsonProperty("zip_code")
+    private String zipCode;
+
     @Column(name = "country", nullable = false)
     @JsonProperty("country")
     private String country;
@@ -58,6 +62,7 @@ public class Location {
             this.address = location.getAddress();
             this.city = location.getCity();
             this.stateProv = location.getStateProv();
+            this.zipCode = location.getZipCode();
             this.country = location.getCountry();
             this.region = location.getRegion();
             this.latitude = location.getLatitude();

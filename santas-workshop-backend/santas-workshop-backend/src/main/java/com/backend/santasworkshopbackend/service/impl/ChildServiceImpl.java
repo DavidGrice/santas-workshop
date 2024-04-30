@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.ChildDTO;
@@ -17,6 +18,8 @@ import com.backend.santasworkshopbackend.repository.ChildRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
 import com.backend.santasworkshopbackend.repository.StatusRepository;
 import com.backend.santasworkshopbackend.service.ChildService;
+import com.backend.santasworkshopbackend.specification.ChildSpecification;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
 
 @Service
 public class ChildServiceImpl implements ChildService {
@@ -101,6 +104,39 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public void deleteChild(Long id) {
         childRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<ChildDTO> searchChildren(String firstName, String lastName, Integer age, Long statusId, Long locationId, Pageable pageable) {
+        Specification<Child> spec = Specification.where(null);
+
+        if (firstName != null) {
+            Specification<Child> specFirstName = new ChildSpecification(new SearchCriteria("firstName", ":", firstName));
+            spec = spec.and(specFirstName);
+        }
+
+        if (lastName != null) {
+            Specification<Child> specLastName = new ChildSpecification(new SearchCriteria("lastName", ":", lastName));
+            spec = spec.and(specLastName);
+        }
+
+        if (age != null) {
+            Specification<Child> specAge = new ChildSpecification(new SearchCriteria("age", ":", age));
+            spec = spec.and(specAge);
+        }
+
+        if (statusId != null) {
+            Specification<Child> specStatus = new ChildSpecification(new SearchCriteria("status.id", ":", statusId));
+            spec = spec.and(specStatus);
+        }
+
+        if (locationId != null) {
+            Specification<Child> specLocation = new ChildSpecification(new SearchCriteria("location.id", ":", locationId));
+            spec = spec.and(specLocation);
+        }
+
+        Page<Child> children = childRepository.findAll(spec, pageable);
+        return children.map(child -> modelMapper.map(child, ChildDTO.class));
     }
     
 }

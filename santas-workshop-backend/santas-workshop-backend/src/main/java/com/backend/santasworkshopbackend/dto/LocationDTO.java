@@ -23,6 +23,8 @@ public class LocationDTO {
     private String city;
     @JsonProperty("state_prov")
     private String stateProv;
+    @JsonProperty("zip_code")
+    private String zipCode;
     @JsonProperty("country")
     private String country;
     @JsonProperty("region")
@@ -38,6 +40,7 @@ public class LocationDTO {
         this.address = location.getAddress();
         this.city = location.getCity();
         this.stateProv = location.getStateProv();
+        this.zipCode = location.getZipCode();
         this.country = location.getCountry();
         this.region = location.getRegion();
         this.latitude = location.getLatitude();

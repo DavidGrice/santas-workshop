@@ -63,5 +63,17 @@ public class RoleController {
         response.put("message", "Role deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/getRoleByName/{name}")
+    public ResponseEntity<RoleDTO> getRoleByName(@PathVariable("name") String name) {
+        RoleDTO role = roleService.getRoleByName(name);
+        return new ResponseEntity<>(role, HttpStatus.OK);
+    }
+
+    @GetMapping("/roleExists/{name}")
+    public ResponseEntity<Boolean> existsRoleByName(@PathVariable("name") String name) {
+        boolean exists = roleService.existsRoleByName(name);
+        return new ResponseEntity<>(exists, HttpStatus.OK);
+    }
     
 }

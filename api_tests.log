@@ -1,0 +1,322 @@
+2024-04-29 22:00:11,348:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/roleExists/Admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F323E80340>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:00:15,431:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/createRole (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F323E80D90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:00:19,502:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/roleExists/Guest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F323E80490>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:00:23,576:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/createRole (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F323EA9790>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:00:27,636:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/getRoleByName/Admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001F323EB1160>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:03:04,490:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/roleExists/Admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002225A01D3A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:03:08,544:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/createRole (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002225A01DDF0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:03:12,598:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/roleExists/Guest (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002225A01D4F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:03:16,660:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/createRole (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002225A04A7F0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:03:20,723:ERROR:Error: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /api/role/getRoleByName/Admin (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000002225A0521C0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))
+2024-04-29 22:13:36,266:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:13:36,436:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:13:36,446:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:13:36,456:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:13:36,486:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,595:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,605:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,614:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,624:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,689:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,717:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,738:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,766:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,809:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,825:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,854:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,865:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,875:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,900:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,917:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,926:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,938:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,956:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,968:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,978:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:08,989:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,001:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,049:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,064:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,076:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,099:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,127:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,156:ERROR:Error: 'UserTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:09,175:ERROR:Error: 'UserTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:50,902:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:50,911:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:50,944:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:50,969:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:50,979:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,000:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,009:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,030:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,057:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,068:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,075:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,096:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,107:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,125:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,149:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,158:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,166:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,175:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,195:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,220:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,249:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,257:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,265:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,286:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,310:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,333:ERROR:Error: 'UserTests' object has no attribute 'assertEqual'
+2024-04-29 22:14:51,348:ERROR:Error: 'UserTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,595:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,605:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,628:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,653:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,701:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,720:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,729:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,747:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,770:ERROR:Error: 'DescriptionTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,779:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,786:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,816:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,829:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,852:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,875:ERROR:Error: 'RoleTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,885:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,894:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,902:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,920:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,941:ERROR:Error: 'StatusTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,966:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,973:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:39,982:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:40,001:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:40,022:ERROR:Error: 'LocationTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:40,046:ERROR:Error: 'UserTests' object has no attribute 'assertEqual'
+2024-04-29 22:15:40,065:ERROR:Error: 'UserTests' object has no attribute 'assertEqual'
+2024-04-29 22:17:09,716:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:17:09,725:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:17:09,746:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,769:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,803:ERROR:Error: 500 != 201
+2024-04-29 22:17:09,822:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,834:INFO:Test 2: Get all descriptions - Status code: 200
+2024-04-29 22:17:09,853:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,876:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,886:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:17:09,894:INFO:Test 6: Get one role - Status code: 200
+2024-04-29 22:17:09,918:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,929:INFO:Test 7: Get all roles - Status code: 200
+2024-04-29 22:17:09,949:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,971:ERROR:Error: 500 != 200
+2024-04-29 22:17:09,979:INFO:Test 10: Add one status - Status code: 201
+2024-04-29 22:17:09,987:INFO:Test 11: Get one status - Status code: 200
+2024-04-29 22:17:09,994:INFO:Test 12: Get all statuses - Status code: 200
+2024-04-29 22:17:10,013:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,036:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,066:ERROR:Error: 500 != 201
+2024-04-29 22:17:10,075:INFO:Test 16: Get one location - Status code: 200
+2024-04-29 22:17:10,083:INFO:Test 17: Get all locations - Status code: 200
+2024-04-29 22:17:10,103:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,127:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,153:ERROR:Error: 500 != 201
+2024-04-29 22:17:10,173:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,201:ERROR:Error: 500 != 201
+2024-04-29 22:17:10,227:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,253:ERROR:Error: 500 != 201
+2024-04-29 22:17:10,274:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,284:INFO:Test 27: Get all toys - Status code: 200
+2024-04-29 22:17:10,306:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,335:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,359:ERROR:Error: 500 != 201
+2024-04-29 22:17:10,381:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,391:INFO:Test 32: Get all children - Status code: 200
+2024-04-29 22:17:10,413:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,444:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,470:ERROR:Error: 500 != 201
+2024-04-29 22:17:10,492:INFO:Test 36: Get one delivery - Status code: 200
+2024-04-29 22:17:10,504:INFO:Test 37: Get all deliveries - Status code: 200
+2024-04-29 22:17:10,529:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,556:ERROR:Error: 500 != 200
+2024-04-29 22:17:10,556:INFO:All tests passed successfully.
+2024-04-29 22:20:39,035:INFO:Test 6: Check if role exists - Status code: 200
+2024-04-29 22:20:39,046:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:20:39,059:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:20:39,092:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,117:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,152:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,169:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,178:INFO:Test 2: Get all descriptions - Status code: 200
+2024-04-29 22:20:39,197:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,223:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,231:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:20:39,239:INFO:Test 6: Get one role - Status code: 200
+2024-04-29 22:20:39,263:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,275:INFO:Test 7: Get all roles - Status code: 200
+2024-04-29 22:20:39,292:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,317:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,325:INFO:Test 10: Add one status - Status code: 201
+2024-04-29 22:20:39,332:INFO:Test 11: Get one status - Status code: 200
+2024-04-29 22:20:39,341:INFO:Test 12: Get all statuses - Status code: 200
+2024-04-29 22:20:39,359:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,382:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,411:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,418:INFO:Test 16: Get one location - Status code: 200
+2024-04-29 22:20:39,426:INFO:Test 17: Get all locations - Status code: 200
+2024-04-29 22:20:39,445:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,467:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,491:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,510:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,538:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,561:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,581:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,602:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,610:INFO:Test 27: Get all toys - Status code: 200
+2024-04-29 22:20:39,631:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,655:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,674:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,694:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,702:INFO:Test 32: Get all children - Status code: 200
+2024-04-29 22:20:39,722:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,752:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,772:ERROR:Error: 500 != 201
+2024-04-29 22:20:39,783:INFO:Test 36: Get one delivery - Status code: 200
+2024-04-29 22:20:39,791:INFO:Test 37: Get all deliveries - Status code: 200
+2024-04-29 22:20:39,816:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,844:ERROR:Error: 500 != 200
+2024-04-29 22:20:39,844:INFO:All tests passed successfully.
+2024-04-29 22:23:10,886:INFO:Test 6: Check if role exists - Status code: 200
+2024-04-29 22:23:10,907:ERROR:Error: 500 != 200
+2024-04-29 22:23:10,928:ERROR:Error: 500 != 200
+2024-04-29 22:23:10,941:INFO:Test 0: Add one description - Status code: 201
+2024-04-29 22:23:10,949:INFO:Test 1: Get one description - Status code: 200
+2024-04-29 22:23:10,957:INFO:Test 2: Get all descriptions - Status code: 200
+2024-04-29 22:23:10,966:INFO:Test 3: Update description - Status code: 200
+2024-04-29 22:23:10,977:INFO:Test 4: Delete description - Status code: 200
+2024-04-29 22:23:10,987:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:23:10,995:INFO:Test 6: Get one role - Status code: 200
+2024-04-29 22:23:11,003:INFO:Test 6: Get one role by name - Status code: 200
+2024-04-29 22:23:11,011:INFO:Test 7: Get all roles - Status code: 200
+2024-04-29 22:23:11,020:INFO:Test 8: Update role - Status code: 200
+2024-04-29 22:23:11,031:INFO:Test 9: Delete role - Status code: 200
+2024-04-29 22:23:11,040:INFO:Test 10: Add one status - Status code: 201
+2024-04-29 22:23:11,048:INFO:Test 11: Get one status - Status code: 200
+2024-04-29 22:23:11,055:INFO:Test 12: Get all statuses - Status code: 200
+2024-04-29 22:23:11,063:INFO:Test 13: Update status - Status code: 200
+2024-04-29 22:23:11,073:INFO:Test 14: Delete status - Status code: 200
+2024-04-29 22:23:11,101:ERROR:Error: 500 != 201
+2024-04-29 22:23:11,110:INFO:Test 16: Get one location - Status code: 200
+2024-04-29 22:23:11,118:INFO:Test 17: Get all locations - Status code: 200
+2024-04-29 22:23:11,136:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,173:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,195:ERROR:Error: 500 != 201
+2024-04-29 22:23:11,213:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,240:ERROR:Error: 500 != 201
+2024-04-29 22:23:11,261:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,279:ERROR:Error: 500 != 201
+2024-04-29 22:23:11,299:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,306:INFO:Test 27: Get all toys - Status code: 200
+2024-04-29 22:23:11,325:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,351:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,369:ERROR:Error: 500 != 201
+2024-04-29 22:23:11,387:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,394:INFO:Test 32: Get all children - Status code: 200
+2024-04-29 22:23:11,413:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,438:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,457:ERROR:Error: 500 != 201
+2024-04-29 22:23:11,467:INFO:Test 36: Get one delivery - Status code: 200
+2024-04-29 22:23:11,475:INFO:Test 37: Get all deliveries - Status code: 200
+2024-04-29 22:23:11,497:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,529:ERROR:Error: 500 != 200
+2024-04-29 22:23:11,529:INFO:All tests passed successfully.
+2024-04-29 22:24:05,720:INFO:Test 6: Check if role exists - Status code: 200
+2024-04-29 22:24:05,730:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:24:05,739:INFO:Test 6: Get one role by name - Status code: 200
+2024-04-29 22:24:05,766:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,779:INFO:Test 0: Add one description - Status code: 201
+2024-04-29 22:24:05,804:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,813:INFO:Test 2: Get all descriptions - Status code: 200
+2024-04-29 22:24:05,833:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,856:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,864:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:24:05,871:INFO:Test 6: Get one role - Status code: 200
+2024-04-29 22:24:05,893:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,902:INFO:Test 7: Get all roles - Status code: 200
+2024-04-29 22:24:05,922:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,944:ERROR:Error: 500 != 200
+2024-04-29 22:24:05,953:INFO:Test 10: Add one status - Status code: 201
+2024-04-29 22:24:05,958:INFO:Test 11: Get one status - Status code: 200
+2024-04-29 22:24:05,965:INFO:Test 12: Get all statuses - Status code: 200
+2024-04-29 22:24:05,984:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,007:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,036:ERROR:Error: 500 != 201
+2024-04-29 22:24:06,042:INFO:Test 16: Get one location - Status code: 200
+2024-04-29 22:24:06,050:INFO:Test 17: Get all locations - Status code: 200
+2024-04-29 22:24:06,071:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,097:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,098:ERROR:Error: Object of type Response is not JSON serializable
+2024-04-29 22:24:06,116:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,124:ERROR:Error: Object of type Response is not JSON serializable
+2024-04-29 22:24:06,152:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,173:ERROR:Error: 500 != 201
+2024-04-29 22:24:06,192:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,200:INFO:Test 27: Get all toys - Status code: 200
+2024-04-29 22:24:06,220:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,244:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,262:ERROR:Error: 500 != 201
+2024-04-29 22:24:06,281:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,289:INFO:Test 32: Get all children - Status code: 200
+2024-04-29 22:24:06,308:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,331:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,350:ERROR:Error: 500 != 201
+2024-04-29 22:24:06,361:INFO:Test 36: Get one delivery - Status code: 200
+2024-04-29 22:24:06,367:INFO:Test 37: Get all deliveries - Status code: 200
+2024-04-29 22:24:06,386:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,410:ERROR:Error: 500 != 200
+2024-04-29 22:24:06,410:INFO:All tests passed successfully.
+2024-04-29 22:26:31,912:INFO:Test 6: Check if role exists - Status code: 200
+2024-04-29 22:26:31,932:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:26:31,947:INFO:Test 6: Get one role by name - Status code: 200
+2024-04-29 22:26:31,966:INFO:Test 0: Add one description - Status code: 201
+2024-04-29 22:26:31,980:INFO:Test 1: Get one description - Status code: 200
+2024-04-29 22:26:31,994:INFO:Test 2: Get all descriptions - Status code: 200
+2024-04-29 22:26:32,008:INFO:Test 3: Update description - Status code: 200
+2024-04-29 22:26:32,024:INFO:Test 4: Delete description - Status code: 200
+2024-04-29 22:26:32,039:INFO:Test 5: Add one role - Status code: 201
+2024-04-29 22:26:32,053:INFO:Test 6: Get one role - Status code: 200
+2024-04-29 22:26:32,082:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,097:INFO:Test 7: Get all roles - Status code: 200
+2024-04-29 22:26:32,113:INFO:Test 8: Update role - Status code: 200
+2024-04-29 22:26:32,131:INFO:Test 9: Delete role - Status code: 200
+2024-04-29 22:26:32,148:INFO:Test 10: Add one status - Status code: 201
+2024-04-29 22:26:32,161:INFO:Test 11: Get one status - Status code: 200
+2024-04-29 22:26:32,175:INFO:Test 12: Get all statuses - Status code: 200
+2024-04-29 22:26:32,188:INFO:Test 13: Update status - Status code: 200
+2024-04-29 22:26:32,207:INFO:Test 14: Delete status - Status code: 200
+2024-04-29 22:26:32,248:ERROR:Error: 500 != 201
+2024-04-29 22:26:32,264:INFO:Test 16: Get one location - Status code: 200
+2024-04-29 22:26:32,278:INFO:Test 17: Get all locations - Status code: 200
+2024-04-29 22:26:32,306:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,335:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,337:ERROR:Error: Object of type Response is not JSON serializable
+2024-04-29 22:26:32,361:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,377:ERROR:Error: Object of type Response is not JSON serializable
+2024-04-29 22:26:32,404:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,429:ERROR:Error: 500 != 201
+2024-04-29 22:26:32,454:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,468:INFO:Test 27: Get all toys - Status code: 200
+2024-04-29 22:26:32,494:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,523:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,549:ERROR:Error: 500 != 201
+2024-04-29 22:26:32,574:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,587:INFO:Test 32: Get all children - Status code: 200
+2024-04-29 22:26:32,611:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,643:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,677:ERROR:Error: 500 != 201
+2024-04-29 22:26:32,703:INFO:Test 36: Get one delivery - Status code: 200
+2024-04-29 22:26:32,718:INFO:Test 37: Get all deliveries - Status code: 200
+2024-04-29 22:26:32,744:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,773:ERROR:Error: 500 != 200
+2024-04-29 22:26:32,773:INFO:All tests passed successfully.

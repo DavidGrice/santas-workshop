@@ -10,8 +10,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @Data
-@Table(name = "statuses")
-public class Status {
+@Table(name = "child_statuses")
+public class ChildStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Status {
     private String statusDescription;
 
     // getters and setters...
-    public Status(Status status, boolean shallow) {
+    public ChildStatus(ChildStatus status, boolean shallow) {
         if (status != null) {
             this.id = status.getId();
             this.statusName = status.getStatusName();
@@ -33,7 +33,7 @@ public class Status {
         }
     }
     
-    public Status() {
+    public ChildStatus() {
     }
     
 }

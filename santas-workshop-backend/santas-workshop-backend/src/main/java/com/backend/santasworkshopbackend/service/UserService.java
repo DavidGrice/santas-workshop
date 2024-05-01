@@ -13,5 +13,7 @@ public interface UserService {
     Page<UserDTO> getUsers(Pageable pagedUsers);
     UserDTO updateUser(UserDTO userDTO);
     void deleteUser(Long id);
-    
+    Page<UserDTO> searchUsers(String email, String userName, String password, String firstName, String lastName, Long roleID, Pageable pagedUsers);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }

@@ -61,5 +61,24 @@ public class DescriptionController {
         response.put("deleted", "Description deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/searchDescriptions")
+    public ResponseEntity<Page<DescriptionDTO>> searchDescriptions(@RequestParam(required = false) Long id,
+                                                                   @RequestParam(required = false) String name,
+                                                                   @RequestParam(required = false) String description,
+                                                                   Pageable pagedDescriptions) {
+        Page<DescriptionDTO> descriptions = descriptionService.searchDescriptions(id, name, description, pagedDescriptions);
+        return new ResponseEntity<>(descriptions, HttpStatus.OK);
+    }
+
+    @GetMapping("/existsByName")
+    public ResponseEntity<Boolean> existsByName(@RequestParam String name) {
+        return new ResponseEntity<>(descriptionService.existsByName(name), HttpStatus.OK);
+    }
+
+    @GetMapping("/existsByDescription")
+    public ResponseEntity<Boolean> existsByDescription(@RequestParam String description) {
+        return new ResponseEntity<>(descriptionService.existsByDescription(description), HttpStatus.OK);
+    }
     
 }

@@ -11,10 +11,10 @@ public interface RoleService {
 
     RoleDTO createRole(RoleDTO roleDTO);
     RoleDTO getRole(Long id);
-    RoleDTO getRoleByName(String name);
     boolean existsRoleByName(String name);
     Page<RoleDTO> getAllRoles(Pageable pagedRoles);
     RoleDTO updateRole(RoleDTO roleDTO);
     void deleteRole(Long id);
+    Page<RoleDTO> searchRoles(Long id, String name, String description, Pageable pagedRoles);
     
 }

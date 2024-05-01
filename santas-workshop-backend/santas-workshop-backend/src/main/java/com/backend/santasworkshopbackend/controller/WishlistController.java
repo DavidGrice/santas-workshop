@@ -61,5 +61,18 @@ public class WishlistController {
         response.put("message", "Wishlist deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/searchWishlists")
+    public Page<WishlistDTO> searchWishlists(@RequestParam(required = false) String name, 
+                                                             @RequestParam(required = false) Long childID,
+                                                              Pageable pagedWishlist) {
+        return wishlistService.searchWishlists(name, childID, pagedWishlist);
+    }
+
+    @GetMapping("/exists/{id}/{childId}")
+    public ResponseEntity<Boolean> existsByIdAndWishlistIsNotNull(@PathVariable Long id, @PathVariable Long childId) {
+        boolean exists = wishlistService.existsByIdAndWishlistIsNotNull(id, childId);
+        return ResponseEntity.ok(exists);
+    }
     
 }

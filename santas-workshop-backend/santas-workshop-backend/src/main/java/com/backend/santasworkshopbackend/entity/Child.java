@@ -29,7 +29,7 @@ public class Child {
 
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
-    private Status statusID;
+    private ChildStatus statusID;
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)

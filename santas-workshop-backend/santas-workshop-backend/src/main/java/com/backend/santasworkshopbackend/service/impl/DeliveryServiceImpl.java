@@ -4,16 +4,19 @@ import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.DeliveryDTO;
 import com.backend.santasworkshopbackend.entity.Child;
 import com.backend.santasworkshopbackend.entity.Delivery;
+import com.backend.santasworkshopbackend.entity.DeliveryStatus;
 import com.backend.santasworkshopbackend.entity.Location;
-import com.backend.santasworkshopbackend.entity.Status;
 import com.backend.santasworkshopbackend.entity.Toy;
 import com.backend.santasworkshopbackend.repository.ChildRepository;
 import com.backend.santasworkshopbackend.repository.DeliveryRepository;
+import com.backend.santasworkshopbackend.repository.DeliveryStatusRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
-import com.backend.santasworkshopbackend.repository.StatusRepository;
 import com.backend.santasworkshopbackend.repository.ToyRepository;
 import com.backend.santasworkshopbackend.service.DeliveryService;
+import com.backend.santasworkshopbackend.specification.DeliverySpecification;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -22,11 +25,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class DeliveryServiceImpl implements DeliveryService{
 
-    private StatusRepository statusRepository;
+    private DeliveryStatusRepository statusRepository;
     private ChildRepository childRepository;
     private DeliveryRepository deliveryRepository;
     private LocationRepository locationRepository;
@@ -36,7 +40,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
 
     @Autowired
-    public DeliveryServiceImpl(DeliveryRepository deliveryRepository, ModelMapper modelMapper, StatusRepository statusRepository, ChildRepository childRepository, LocationRepository locationRepository, ToyRepository toyRepository) {
+    public DeliveryServiceImpl(DeliveryRepository deliveryRepository, ModelMapper modelMapper, DeliveryStatusRepository statusRepository, ChildRepository childRepository, LocationRepository locationRepository, ToyRepository toyRepository) {
         this.deliveryRepository = deliveryRepository;
         this.modelMapper = modelMapper;
         this.statusRepository = statusRepository;
@@ -61,7 +65,7 @@ public class DeliveryServiceImpl implements DeliveryService{
             .orElseThrow(() -> new RuntimeException("Toy not found"));
         delivery.setToyID(toy);
 
-        Status status = statusRepository.findById(deliveryDTO.getStatusID())
+        DeliveryStatus status = statusRepository.findById(deliveryDTO.getStatusID())
             .orElseThrow(() -> new RuntimeException("Status not found"));
         delivery.setStatusID(status);
 
@@ -103,7 +107,7 @@ public class DeliveryServiceImpl implements DeliveryService{
             .orElseThrow(() -> new RuntimeException("Delivery not found"));
         existingDelivery.setDeliveredDate(deliveryDTO.getDeliveredDate());
 
-        Status status = statusRepository.findById(deliveryDTO.getStatusID())
+        DeliveryStatus status = statusRepository.findById(deliveryDTO.getStatusID())
             .orElseThrow(() -> new RuntimeException("Status not found"));
         existingDelivery.setStatusID(status);
 
@@ -126,6 +130,44 @@ public class DeliveryServiceImpl implements DeliveryService{
     @Override
     public void deleteDelivery(Long id) {
         deliveryRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long toyId, Long deliveryStatusId, Date deliveryDate, Pageable pagedDeliveries) {
+        Specification<Delivery> spec = Specification.where(null);
+
+        if (id != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("id", ":", id)));
+        }
+        if (childId != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("childID", ":", childId)));
+        }
+        if (toyId != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("toyID", ":", toyId)));
+        }
+        if (deliveryStatusId != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("statusID", ":", deliveryStatusId)));
+        }
+        if (deliveryDate != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("deliveredDate", ":", deliveryDate)));
+        }
+
+        return deliveryRepository.findAll(pagedDeliveries).map(delivery -> modelMapper.map(delivery, DeliveryDTO.class));
+    }
+
+    @Override
+    public boolean existsByChildIdAndToyId(Long childId, Long toyId) {
+        return deliveryRepository.existsByChildIdAndToyId(childId, toyId);
+    }
+
+    @Override
+    public boolean existsByChildIdAndToyIdAndDeliveryStatusId(Long childId, Long toyId, Long deliveryStatusId) {
+        return deliveryRepository.existsByChildIdAndToyIdAndDeliveryStatusId(childId, toyId, deliveryStatusId);
+    }
+
+    @Override
+    public boolean existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(Long childId, Long toyId, Long deliveryStatusId, Date deliveryDate) {
+        return deliveryRepository.existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(childId, toyId, deliveryStatusId, deliveryDate);
     }
     
 }

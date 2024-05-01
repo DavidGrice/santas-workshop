@@ -127,50 +127,99 @@ class Role:
     
     #endregion
 
-class Status:
+class ChildStatus:
     BASE_URL = 'http://localhost:8080'
 
-    #region Status
+    #region ChildStatus
 
-    def add_status(self, data = {"status_name": "Delivered", "status_description": "Toy has been delivered."}):
+    def add_status(self, data = {"status_name": "Naughty", "status_description": "Coal in sack cloth."}):
         try:
-            response = requests.post(f'{self.BASE_URL}/api/status/createStatus', json = data)
+            response = requests.post(f'{self.BASE_URL}/api/child_status/createStatus', json = data)
             #self.assertEqual(response.status_code, 201)
-            logging.info('Test 10: Add one status - Status code: %s', response.status_code)
+            logging.info('Test 10: Add one status - ChildStatus code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
 
     def get_status_by_id(self, id = 1):
         try:
-            response = requests.get(f'{self.BASE_URL}/api/status/getStatus/{id}')
+            response = requests.get(f'{self.BASE_URL}/api/child_status/getStatus/{id}')
             #self.assertEqual(response.status_code, 200)
-            logging.info('Test 11: Get one status - Status code: %s', response.status_code)
+            logging.info('Test 11: Get one status - ChildStatus code: %s', response.status_code)
             return response
         except Exception as e:
             logging.error('Error: %s', e)
 
     def get_all_statuses(self):
         try:
-            response = requests.get(f'{self.BASE_URL}/api/status/getAllStatuses')
+            response = requests.get(f'{self.BASE_URL}/api/child_status/getAllStatuses')
             #self.assertEqual(response.status_code, 200)
-            logging.info('Test 12: Get all statuses - Status code: %s', response.status_code)
+            logging.info('Test 12: Get all statuses - ChildStatus code: %s', response.status_code)
+            return response
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def update_status_by_id(self, id = 1, data = {"status_name": "Nice", "status_description": "No longer needs coal."}):
+        try:
+            response = requests.put(f'{self.BASE_URL}/api/child_status/updateStatus/{id}', json = data)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 13: Update status - ChildStatus code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def delete_status_by_id(self, id = 1):
+        try:
+            response = requests.delete(f'{self.BASE_URL}/api/child_status/deleteStatus/{id}')
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 14: Delete status - ChildStatus code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    #endregion
+
+class DeliveryStatus:
+    BASE_URL = 'http://localhost:8080'
+
+    #region DeliveryStatus
+
+    def add_status(self, data = {"status_name": "Delivered", "status_description": "Toy has been delivered."}):
+        try:
+            response = requests.post(f'{self.BASE_URL}/api/delivery_status/createStatus', json = data)
+            #self.assertEqual(response.status_code, 201)
+            logging.info('Test 10: Add one status - DeliveryStatus code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def get_status_by_id(self, id = 1):
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/delivery_status/getStatus/{id}')
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 11: Get one status - DeliveryStatus code: %s', response.status_code)
+            return response
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def get_all_statuses(self):
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/delivery_status/getAllStatuses')
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 12: Get all statuses - DeliveryStatus code: %s', response.status_code)
             return response
         except Exception as e:
             logging.error('Error: %s', e)
 
     def update_status_by_id(self, id = 1, data = {"status_name": "Delivered", "status_description": "Toy has been delivered."}):
         try:
-            response = requests.put(f'{self.BASE_URL}/api/status/updateStatus/{id}', json = data)
+            response = requests.put(f'{self.BASE_URL}/api/delivery_status/updateStatus/{id}', json = data)
             #self.assertEqual(response.status_code, 200)
-            logging.info('Test 13: Update status - Status code: %s', response.status_code)
+            logging.info('Test 13: Update status - DeliveryStatus code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
 
     def delete_status_by_id(self, id = 1):
         try:
-            response = requests.delete(f'{self.BASE_URL}/api/status/deleteStatus/{id}')
+            response = requests.delete(f'{self.BASE_URL}/api/delivery_status/deleteStatus/{id}')
             #self.assertEqual(response.status_code, 200)
-            logging.info('Test 14: Delete status - Status code: %s', response.status_code)
+            logging.info('Test 14: Delete status - DeliveryStatus code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
 
@@ -300,7 +349,6 @@ class User:
             logging.error('Error: %s', e)
 
     def delete_user(self, id = 1):
-            
         try:
             response = requests.delete(f'{self.BASE_URL}/api/user/deleteUser/{id}')
             #self.assertEqual(response.status_code, 200)
@@ -311,6 +359,24 @@ class User:
         instantiateRole = Role()
         role_to_delete = instantiateRole.get_role_by_name("Admin").json()
         instantiateRole.delete_role_by_id(role_to_delete['id'])
+
+    def search_user(self):
+        params = {
+            'email': '',
+            'userName': 'admin',
+            'password': '',
+            'firstName': '',
+            'lastName': '',
+            'roleID': 1
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/user/searchUsers', params=params)
+            # self.assertEqual(response.status_code, 200)
+            # self.assertIsInstance(response.json(), list)
+            logging.info('Test 25: Search user - Status code: %s', response.status_code)
+            logging.info('Test 25: Search user - Response: %s', response.json())
+        except Exception as e:
+            logging.error('Error: %s', e)
     #endregion
 
 class Toy:
@@ -496,6 +562,7 @@ def run_tests():
     user.get_user_by_id()
     user.get_all_users()
     user.update_user_by_id()
+    user.search_user()
     user.delete_user()
 
     # toy = Toy()

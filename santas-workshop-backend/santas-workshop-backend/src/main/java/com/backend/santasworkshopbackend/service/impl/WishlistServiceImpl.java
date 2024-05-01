@@ -6,12 +6,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.backend.santasworkshopbackend.dto.WishlistDTO;
 import com.backend.santasworkshopbackend.entity.Wishlist;
 import com.backend.santasworkshopbackend.repository.WishlistRepository;
 import com.backend.santasworkshopbackend.service.WishlistService;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
+import com.backend.santasworkshopbackend.specification.WishlistSpecification;
 
 @Service
 public class WishlistServiceImpl implements WishlistService {
@@ -62,6 +65,29 @@ public class WishlistServiceImpl implements WishlistService {
     @Override
     public void deleteWishlist(Long id) {
         wishlistRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<WishlistDTO> searchWishlists(String name, Long childID, Pageable pagedWishlist) {
+        Specification<Wishlist> spec = Specification.where(null);
+
+        if (name != null) {
+            Specification<Wishlist> specName = new WishlistSpecification(new SearchCriteria("name", ":", name));
+            spec = spec.and(specName);
+        }
+        if (childID != null) {
+            Specification<Wishlist> specChildID = new WishlistSpecification(new SearchCriteria("childID", ":", childID));
+            spec = spec.and(specChildID);
+        }
+        
+        Page<Wishlist> wishlists = wishlistRepository.findAll(spec, pagedWishlist);
+        return wishlists.map(wishlist -> modelMapper.map(wishlist, WishlistDTO.class));
+
+    }
+
+    @Override
+    public boolean existsByIdAndWishlistIsNotNull(Long id, Long childID) {
+        return wishlistRepository.existsByIdAndWishlistIsNotNull(id, childID);
     }
     
 }

@@ -1,5 +1,6 @@
 package com.backend.santasworkshopbackend.service;
 
+import java.sql.Date;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,5 +14,7 @@ public interface ToyService {
     Page<ToyDTO> getAllToys(Pageable pagedToys);
     ToyDTO updateToy(ToyDTO toyDTO);
     void deleteToy(Long id);
+    boolean existsByName(String name);
+    Page<ToyDTO> searchToys(String name, Long descriptionID, Long addedBy, Date addedDate, Long updatedBy, Date updatedDate, Long quantity, Pageable pagedToys);
     
 }

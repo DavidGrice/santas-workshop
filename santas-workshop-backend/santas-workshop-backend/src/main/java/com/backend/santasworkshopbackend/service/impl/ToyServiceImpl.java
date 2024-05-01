@@ -1,6 +1,7 @@
 package com.backend.santasworkshopbackend.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.backend.santasworkshopbackend.dto.ToyDTO;
 import com.backend.santasworkshopbackend.entity.Description;
@@ -11,7 +12,10 @@ import com.backend.santasworkshopbackend.repository.RoleRepository;
 import com.backend.santasworkshopbackend.repository.ToyRepository;
 import com.backend.santasworkshopbackend.repository.UserRepository;
 import com.backend.santasworkshopbackend.service.ToyService;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
+import com.backend.santasworkshopbackend.specification.ToySpecification;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -20,6 +24,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class ToyServiceImpl implements ToyService{
@@ -124,6 +129,40 @@ public class ToyServiceImpl implements ToyService{
     @Override
     public void deleteToy(Long id) {
         toyRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<ToyDTO> searchToys(String name, Long descriptionID, Long addedBy, Date addedDate, Long updatedBy, Date updatedDate, Long quantity, Pageable pagedToys) {
+        Specification<Toy> spec = Specification.where(null);
+
+        if (StringUtils.hasText(name)) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("name", ":", name)));
+        }
+        if (descriptionID != null) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("description", ":", descriptionID)));
+        }
+        if (addedBy != null) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("addedBy", ":", addedBy)));
+        }
+        if (addedDate != null) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("addedDate", ":", addedDate)));
+        }
+        if (updatedBy != null) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("updatedBy", ":", updatedBy)));
+        }
+        if (updatedDate != null) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("updatedDate", ":", updatedDate)));
+        }
+        if (quantity != null) {
+            spec = spec.and(new ToySpecification(new SearchCriteria("quantity", ":", quantity)));
+        }
+
+        return toyRepository.findAll(spec, pagedToys).map(toy -> modelMapper.map(toy, ToyDTO.class));
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return toyRepository.existsByName(name);
     }
     
 }

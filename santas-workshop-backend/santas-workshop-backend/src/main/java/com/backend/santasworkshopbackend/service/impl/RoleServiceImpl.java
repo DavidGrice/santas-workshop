@@ -1,13 +1,19 @@
 package com.backend.santasworkshopbackend.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.backend.santasworkshopbackend.dto.RoleDTO;
 import com.backend.santasworkshopbackend.entity.Role;
 import com.backend.santasworkshopbackend.repository.RoleRepository;
 import com.backend.santasworkshopbackend.service.RoleService;
+import com.backend.santasworkshopbackend.specification.RoleSpecification;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
+import com.backend.santasworkshopbackend.specification.ToySpecification;
 
 import java.util.Optional;
+
+import javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
@@ -15,6 +21,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -82,19 +89,26 @@ public class RoleServiceImpl implements RoleService {
         Logger.info("Role deleted deleteRole(Long id)" + id);
     }
 
-    
-    @Override
-    public RoleDTO getRoleByName(String name) {
-        Role role = roleRepository.findByRoleName(name);
-        Logger.info("Role exists in getRoleByName(String name)" + role);
-        RoleDTO roleDTO = modelMapper.map(role, RoleDTO.class);
-        return roleDTO;
-    }
-
     @Override
     public boolean existsRoleByName(String name) {
         Logger.info("Role exists in existsRoleByName(String name)" + name);
         return roleRepository.existsByRoleName(name);
+    }
+
+    @Override
+    public Page<RoleDTO> searchRoles(Long id, String name, String description, Pageable pagedRoles) {
+        Specification<Role> spec = Specification.where(null);
+
+        if(id != null){
+            spec = spec.and(new RoleSpecification(new SearchCriteria("id", ":", id)));
+        }
+        if(StringUtils.hasText(name)){
+            spec = spec.and(new RoleSpecification(new SearchCriteria("name", ":", name)));
+        }
+        if(StringUtils.hasText(description)){
+            spec = spec.and(new RoleSpecification(new SearchCriteria("description", ":", description)));
+        }        
+        return roleRepository.findAll(spec, pagedRoles).map(role -> modelMapper.map(role, RoleDTO.class));
     }
     
 }

@@ -6,7 +6,8 @@ DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS descriptions;
-DROP TABLE IF EXISTS statuses;
+DROP TABLE IF EXISTS delivery_statuses;
+DROP TABLE IF EXISTS child_statuses;
 
 
 CREATE TABLE descriptions (
@@ -21,8 +22,14 @@ CREATE TABLE roles (
     role_description VARCHAR(255)
 );
 
-CREATE TABLE statuses (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE delivery_statuses (
+    id INT PRIMARY KEY,
+    status_name VARCHAR(255) NOT NULL,
+    status_description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE child_statuses (
+    id INT PRIMARY KEY,
     status_name VARCHAR(255) NOT NULL,
     status_description VARCHAR(255) NOT NULL
 );
@@ -72,7 +79,7 @@ CREATE TABLE children (
     status_id INTEGER,
     location_id INTEGER,
     FOREIGN KEY (location_id) REFERENCES locations(id),
-    FOREIGN KEY (status_id) REFERENCES statuses(id)
+    FOREIGN KEY (status_id) REFERENCES child_statuses(id)
 );
 
 CREATE TABLE wishlists (
@@ -91,7 +98,7 @@ CREATE TABLE deliveries (
     FOREIGN KEY (child_id) REFERENCES children(id),
     FOREIGN KEY (location_id) REFERENCES locations(id),
     FOREIGN KEY (toy_id) REFERENCES toys(id),
-    FOREIGN KEY (status_id) REFERENCES statuses(id)
+    FOREIGN KEY (status_id) REFERENCES delivery_statuses(id)
 );
 
 SELECT * FROM descriptions;

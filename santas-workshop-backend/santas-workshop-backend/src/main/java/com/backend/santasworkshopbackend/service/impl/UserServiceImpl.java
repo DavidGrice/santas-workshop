@@ -2,6 +2,7 @@ package com.backend.santasworkshopbackend.service.impl;
 
 import org.springframework.stereotype.Service;
 import com.backend.santasworkshopbackend.dto.UserDTO;
+import org.springframework.util.StringUtils;
 import com.backend.santasworkshopbackend.entity.Role;
 import com.backend.santasworkshopbackend.entity.User;
 import com.backend.santasworkshopbackend.repository.RoleRepository;
@@ -17,7 +18,11 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+
 import com.backend.santasworkshopbackend.service.UserService;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
+import com.backend.santasworkshopbackend.specification.UserSpecification;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -105,6 +110,42 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<UserDTO> searchUsers(String email, String userName, String password, String firstName, String lastName, Long roleID, Pageable pagedUsers) {
+        Specification<User> spec = Specification.where(null);
+
+        if (StringUtils.hasText(email)) {
+            spec = spec.and(new UserSpecification(new SearchCriteria("email", ":", email)));
+        }
+        if (StringUtils.hasText(userName)) {
+            spec = spec.and(new UserSpecification(new SearchCriteria("userName", ":", userName)));
+        }
+        if (StringUtils.hasText(password)) {
+            spec = spec.and(new UserSpecification(new SearchCriteria("password", ":", password)));
+        }
+        if (StringUtils.hasText(firstName)) {
+            spec = spec.and(new UserSpecification(new SearchCriteria("firstName", ":", firstName)));
+        }
+        if (StringUtils.hasText(lastName)) {
+            spec = spec.and(new UserSpecification(new SearchCriteria("lastName", ":", lastName)));
+        }
+        if (roleID != null) {
+            spec = spec.and(new UserSpecification(new SearchCriteria("role.id", ":", roleID)));
+        }
+
+        return userRepository.findAll(spec, pagedUsers).map(user -> modelMapper.map(user, UserDTO.class));
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
     
 }

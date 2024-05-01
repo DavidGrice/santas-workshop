@@ -61,5 +61,25 @@ public class ChildController {
         response.put("message", "Child deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/searchChildren")
+    public ResponseEntity<Page<ChildDTO>> searchChildren(@RequestParam(required = false) Long id,
+                                                         @RequestParam(required = false) String firstName,
+                                                         @RequestParam(required = false) String lastName,
+                                                         @RequestParam(required = false) String childAddress,
+                                                         @RequestParam(required = false) String childCity,
+                                                         @RequestParam(required = false) Integer age,
+                                                         @RequestParam(required = false) Long statusID,
+                                                         @RequestParam(required = false) Long locationId,
+                                                         Pageable pageable) {
+        Page<ChildDTO> children = childService.searchChildren(id, firstName, lastName, age, statusID, locationId, pageable);
+        return new ResponseEntity<>(children, HttpStatus.OK);
+    }
+
+    @GetMapping("/existsByChildIdAndIsNaughty")
+    public ResponseEntity<Boolean> existsByIdAndIsNaughty(@RequestParam Long id, @RequestParam Long isNaughty) {
+        return new ResponseEntity<>(childService.existsByIdAndIsNaughty(id, isNaughty), HttpStatus.OK);
+    }
+
     
 }

@@ -1,5 +1,6 @@
 package com.backend.santasworkshopbackend.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,4 +62,17 @@ public class ToyController {
         response.put("message", "Toy has been deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/searchToys")
+    public Page<ToyDTO> searchToys(@RequestParam(required = false) String name,
+                                                  @RequestParam(required = false) Long descriptionID,
+                                                  @RequestParam(required = false) Long addedBy,
+                                                  @RequestParam(required = false) Date addedDate,
+                                                  @RequestParam(required = false) Long updatedBy,
+                                                  @RequestParam(required = false) Date updatedDate,
+                                                  @RequestParam(required = false) Long quantity,
+                                                  Pageable pagedToys) {
+        return toyService.searchToys(name, descriptionID, addedBy, addedDate, updatedBy, updatedDate, quantity, pagedToys);
+    }
+    
 }

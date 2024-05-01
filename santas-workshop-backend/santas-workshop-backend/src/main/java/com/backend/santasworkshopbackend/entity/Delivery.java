@@ -34,7 +34,7 @@ public class Delivery {
 
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
-    private Status statusID;
+    private DeliveryStatus statusID;
 
     @Column(name = "delivered_date", nullable = false)
     private Date deliveredDate;

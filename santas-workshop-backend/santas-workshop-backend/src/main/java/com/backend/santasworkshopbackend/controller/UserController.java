@@ -60,4 +60,28 @@ public class UserController {
         response.put("message", "User deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/searchUsers")
+    public Page<UserDTO> searchUsers(
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String userName,
+            @RequestParam(required = false) String password,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false) Long roleID,
+            Pageable pageable) {
+        return userService.searchUsers(email, userName, password, firstName, lastName, roleID, pageable);
+    }
+
+    @GetMapping("/exists/{username}")
+    public ResponseEntity<Boolean> existsByUsername(@PathVariable String username) {
+        boolean exists = userService.existsByUsername(username);
+        return ResponseEntity.ok(exists);
+    }
+
+    @GetMapping("/exists/{email}")
+    public ResponseEntity<Boolean> existsByEmail(@PathVariable String email) {
+        boolean exists = userService.existsByEmail(email);
+        return ResponseEntity.ok(exists);
+    }
 }

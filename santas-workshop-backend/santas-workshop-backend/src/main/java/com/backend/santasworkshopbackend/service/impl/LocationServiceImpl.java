@@ -1,22 +1,23 @@
 package com.backend.santasworkshopbackend.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.backend.santasworkshopbackend.dto.LocationDTO;
 import com.backend.santasworkshopbackend.entity.Location;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
 import com.backend.santasworkshopbackend.service.LocationService;
-
-import lombok.extern.java.Log;
+import com.backend.santasworkshopbackend.specification.LocationSpecification;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
 
 import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class LocationServiceImpl implements LocationService {
@@ -98,6 +99,77 @@ public class LocationServiceImpl implements LocationService {
     public void deleteLocation(Long id) {
         locationRepository.deleteById(id);
         Logger.info("Location deleted deleteLocation(Long id)" + id);
+    }
+
+    @Override
+    public Page<LocationDTO> searchLocations(Long id, String address, String city, String stateProv, String zipCode,
+            String country, String region, Double latitude, Double longitude, Pageable pagedLocations) {
+            Specification<Location> spec = Specification.where(null);
+
+            if (id != null) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("id", ":", id)));
+            }
+            if (StringUtils.hasText(address)) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("address", ":", address)));
+            }
+            if (StringUtils.hasText(city)) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("city", ":", city)));
+            }
+            if (StringUtils.hasText(stateProv)) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("stateProv", ":", stateProv)));
+            }
+            if (StringUtils.hasText(zipCode)) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("zipCode", ":", zipCode)));
+            }
+            if (StringUtils.hasText(country)) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("country", ":", country)));
+            }
+            if (StringUtils.hasText(region)) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("region", ":", region)));
+            }
+            if (latitude != null) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("latitude", ":", latitude)));
+            }
+            if (longitude != null) {
+                spec = spec.and(new LocationSpecification(new SearchCriteria("longitude", ":", longitude)));
+            }
+
+            return locationRepository.findAll(spec, pagedLocations).map(location -> modelMapper.map(location, LocationDTO.class));
+    }
+
+    @Override
+    public boolean existsByAddress(String address) {
+        return locationRepository.existsByAddress(address);
+    }
+
+    @Override
+    public boolean existsByCity(String city) {
+        return locationRepository.existsByCity(city);
+    }
+
+    @Override
+    public boolean existsByStateProv(String stateProv) {
+        return locationRepository.existsByStateProv(stateProv);
+    }
+
+    @Override
+    public boolean existsByZipCode(String zipCode) {
+        return locationRepository.existsByZipCode(zipCode);
+    }
+
+    @Override
+    public boolean existsByCountry(String country) {
+        return locationRepository.existsByCountry(country);
+    }
+
+    @Override
+    public boolean existsByRegion(String region) {
+        return locationRepository.existsByRegion(region);
+    }
+
+    @Override
+    public boolean existsByLatitudeAndLongitude(Double latitude, Double longitude) {
+        return locationRepository.existsByLatitudeAndLongitude(latitude, longitude);
     }
     
 }

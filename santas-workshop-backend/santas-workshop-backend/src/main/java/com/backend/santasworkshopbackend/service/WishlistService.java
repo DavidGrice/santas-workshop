@@ -14,5 +14,7 @@ public interface WishlistService {
     Page<WishlistDTO> getAllWishlists(Pageable pagedWishlist);
     WishlistDTO updateWishlist(WishlistDTO wishlistDTO);
     void deleteWishlist(Long id);
+    Page<WishlistDTO> searchWishlists(String name, Long childID, Pageable pagedWishlist);
+    boolean existsByIdAndWishlistIsNotNull(Long id, Long childID);
     
 }

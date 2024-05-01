@@ -1,5 +1,6 @@
 package com.backend.santasworkshopbackend.controller;
 
+import java.sql.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,32 @@ public class DeliveryController {
         Map<String, String> response = Map.of("message", "Delivery deleted successfully");
         response.put("message", "Delivery deleted successfully");
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchDeliveries")
+    public ResponseEntity<Page<DeliveryDTO>> searchDeliveries(@RequestParam(required = false) Long id,
+                                                              @RequestParam(required = false) Long childId,
+                                                              @RequestParam(required = false) Long toyId,
+                                                              @RequestParam(required = false) Long deliveryStatusId,
+                                                              @RequestParam(required = false) Date deliveryDate,
+                                                              Pageable pagedDeliveries) {
+        Page <DeliveryDTO> delivery = deliveryService.searchDeliveries(id, childId, toyId, deliveryStatusId, deliveryDate, pagedDeliveries);
+        return new ResponseEntity<>(delivery, HttpStatus.OK);
+    }
+
+    @GetMapping("/existsByDelivery")
+    public ResponseEntity<Boolean> existsByChildIdAndToyId(@RequestParam Long childId, @RequestParam Long toyId) {
+        return new ResponseEntity<>(deliveryService.existsByChildIdAndToyId(childId, toyId), HttpStatus.OK);
+    }
+
+    @GetMapping("/existsByDeliveryStatus")
+    public ResponseEntity<Boolean> existsByChildIdAndToyIdAndDeliveryStatusId(@RequestParam Long childId, @RequestParam Long toyId, @RequestParam Long deliveryStatusId) {
+        return new ResponseEntity<>(deliveryService.existsByChildIdAndToyIdAndDeliveryStatusId(childId, toyId, deliveryStatusId), HttpStatus.OK);
+    }
+
+    @GetMapping("/existsByDeliveryDate")
+    public ResponseEntity<Boolean> existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(@RequestParam Long childId, @RequestParam Long toyId, @RequestParam Long deliveryStatusId, @RequestParam Date deliveryDate) {
+        return new ResponseEntity<>(deliveryService.existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(childId, toyId, deliveryStatusId, deliveryDate), HttpStatus.OK);
     }
     
 }

@@ -13,5 +13,8 @@ public interface DescriptionService {
     Page<DescriptionDTO> getAllDescriptions(Pageable pagedDescriptions);
     DescriptionDTO updateDescription(DescriptionDTO descriptionDTO);
     void deleteDescription(Long id);
+    Page<DescriptionDTO> searchDescriptions(Long id, String name, String description, Pageable pagedDescriptions);
+    boolean existsByName(String name);
+    boolean existsByDescription(String description);
     
 }

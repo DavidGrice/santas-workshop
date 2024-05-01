@@ -2,18 +2,18 @@ package com.backend.santasworkshopbackend.specification;
 
 import javax.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
-import com.backend.santasworkshopbackend.entity.Child;
+import com.backend.santasworkshopbackend.entity.Description;
 
-public class ChildSpecification implements Specification<Child> {
+public class DescriptionSpecification implements Specification<Description> {
 
     private SearchCriteria criteria;
 
-    public ChildSpecification(SearchCriteria criteria) {
+    public DescriptionSpecification(SearchCriteria criteria) {
         this.criteria = criteria;
     }
 
     @Override
-    public Predicate toPredicate(Root<Child> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+    public Predicate toPredicate(Root<Description> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         Path<?> path = getPath(root, criteria.getKey());
 
         if (criteria.getOperation().equalsIgnoreCase(">")) {
@@ -29,8 +29,8 @@ public class ChildSpecification implements Specification<Child> {
         }
         return null;
     }
-
-    private Path<?> getPath(Root<Child> root, String path) {
+    
+    private Path<?> getPath(Root<Description> root, String path) {
         String[] steps = path.split("\\.");
         Path<?> result = root.get(steps[0]);
         for (int i = 1; i < steps.length; i++) {

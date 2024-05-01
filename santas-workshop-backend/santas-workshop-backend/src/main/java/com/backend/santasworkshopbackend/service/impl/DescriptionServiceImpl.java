@@ -1,22 +1,24 @@
 package com.backend.santasworkshopbackend.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.backend.santasworkshopbackend.dto.DescriptionDTO;
 import com.backend.santasworkshopbackend.entity.Description;
 import com.backend.santasworkshopbackend.repository.DescriptionRepository;
 import com.backend.santasworkshopbackend.service.DescriptionService;
+import com.backend.santasworkshopbackend.specification.DescriptionSpecification;
+import com.backend.santasworkshopbackend.specification.SearchCriteria;
 
 import lombok.AllArgsConstructor;
-
 import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class DescriptionServiceImpl implements DescriptionService {
@@ -76,6 +78,33 @@ public class DescriptionServiceImpl implements DescriptionService {
     @Override
     public void deleteDescription(Long id) {
         descriptionRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<DescriptionDTO> searchDescriptions(Long id, String name, String description, Pageable pagedDescriptions) {
+        Specification<Description> spec = Specification.where(null);
+
+        if (id != null) {
+            spec = spec.and(new DescriptionSpecification(new SearchCriteria("id", ":", id)));
+        }
+        if (StringUtils.hasText(name)) {
+            spec = spec.and(new DescriptionSpecification(new SearchCriteria("name", ":", name)));
+        }
+        if (StringUtils.hasText(description)) {
+            spec = spec.and(new DescriptionSpecification(new SearchCriteria("description", ":", description)));
+        }
+
+        return descriptionRepository.findAll(spec, pagedDescriptions).map(descriptions -> modelMapper.map(descriptions, DescriptionDTO.class));
+    }
+
+    @Override
+    public boolean existsByName(String name) {
+        return descriptionRepository.existsByName(name);
+    }
+
+    @Override
+    public boolean existsByDescription(String description) {
+        return descriptionRepository.existsByDescription(description);
     }
     
 }

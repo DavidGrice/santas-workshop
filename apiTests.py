@@ -54,12 +54,7 @@ class Description:
         except Exception as e:
             logging.error('Error: %s', e)
 
-    def search_descriptions(self):
-        params = {
-            'id': 1,
-            'name': 'nail',
-            'description': 'Metal nail, used for nailing things.'
-        }
+    def search_descriptions(self, params = {"id": 1, "name": "nail", "description": "Metal nail, used for nailing things."}):
         try:
             response = requests.get(f'{self.BASE_URL}/api/description/searchDescriptions', params=params)
             #self.assertEqual(response.status_code, 200)
@@ -67,10 +62,7 @@ class Description:
         except Exception as e:
             logging.error('Error: %s', e)
 
-    def decription_exists_by_name(self, name = "nail"):
-        params = {
-            'name': name
-        }
+    def decription_exists_by_name(self, params = {'name': "nail" }):
         try:
             response = requests.get(f'{self.BASE_URL}/api/description/existsByName', params=params)
             #self.assertEqual(response.status_code, 200)
@@ -78,10 +70,7 @@ class Description:
         except Exception as e:
             logging.error('Error: %s', e)
 
-    def description_exists_by_description(self, description = "Metal nail, used for nailing things."):
-        params = {
-            'description': description
-        }
+    def description_exists_by_description(self, params = {'description': "Metal nail, used for nailing things."} ):
         try:
             response = requests.get(f'{self.BASE_URL}/api/description/existsByDescription', params=params)
             #self.assertEqual(response.status_code, 200)
@@ -604,6 +593,9 @@ class Toy:
     #region Toy
 
     def add_toy(self, data = {"name": "Teddy Bear", "description_id": 1, "added_by": 1, "added_date": "2022-01-01T00:00:00Z", "updated_by": 1, "updated_date": "2022-01-01T00:00:00Z", "quantity": 10}):
+        
+        description = Description()
+        description.search_descriptions()
         try:
             response = requests.post(f'{self.BASE_URL}/api/toy/createToy', json = data)
             #self.assertEqual(response.status_code, 201)
@@ -645,16 +637,7 @@ class Toy:
         except Exception as e:
             logging.error('Error: %s', e)
 
-    def search_toys(self):
-        params = {
-            'name': 'Teddy Bear',
-            'description_id': 1,
-            'added_by': 1,
-            'added_date': '2022-01-01T00:00:00Z',
-            'updated_by': 1,
-            'updated_date': '2022-01-01T00:00:00Z',
-            'quantity': 10
-        }
+    def search_toys(self, params = {"id": 1, "name": "Teddy Bear", "description_id": 1, "added_by": 1, "added_date": "2022-01-01T00:00:00Z", "updated_by": 1, "updated_date": "2022-01-01T00:00:00Z", "quantity": 10}):
         try:
             response = requests.get(f'{self.BASE_URL}/api/toy/searchToys', params=params)
             #self.assertEqual(response.status_code, 200)
@@ -847,34 +830,58 @@ class Delivery:
 
 
 def run_tests():
-    # description = Description()
-    # description.add_description()
-    # description.get_description_by_id()
-    # description.get_all_descriptions()
-    # description.update_description_by_id()
-    # description.delete_description_by_id()
+    description = Description()
+    description.add_description()
+    description.get_description_by_id()
+    description.get_all_descriptions()
+    description.update_description_by_id()
+    description.search_descriptions()
+    description.decription_exists_by_name()
+    description.description_exists_by_description()
+    description.delete_description_by_id()
 
-    # role = Role()
-    # role.add_role()
-    # role.get_role_by_id()
-    # role.get_role_by_name()
-    # role.get_all_roles()
-    # role.update_role_by_id()
-    # role.delete_role_by_id()
+    role = Role()
+    role.add_role()
+    role.get_role_by_id()
+    role.get_role_by_name()
+    role.get_all_roles()
+    role.update_role_by_id()
+    role.search_roles()
+    role.delete_role_by_id()
 
-    # status = Status()
-    # status.add_status()
-    # status.get_status_by_id()
-    # status.get_all_statuses()
-    # status.update_status_by_id()
-    # status.delete_status_by_id()
+    childStatus = ChildStatus()
+    childStatus.add_status()
+    childStatus.get_status_by_id()
+    childStatus.get_all_statuses()
+    childStatus.update_status_by_id()
+    childStatus.search_statuses()
+    childStatus.status_exists_by_id_and_name()
+    childStatus.status_exists_by_id_name_and_description()
+    childStatus.delete_status_by_id()
 
-    # location = Location()
-    # location.add_location()
-    # location.get_location_by_id()
-    # location.get_all_locations()
-    # location.update_location_by_id()
-    # location.delete_location_by_id()
+    deliveryStatus = DeliveryStatus()
+    deliveryStatus.add_status()
+    deliveryStatus.get_status_by_id()
+    deliveryStatus.get_all_statuses()
+    deliveryStatus.update_status_by_id()
+    deliveryStatus.search_statuses()
+    deliveryStatus.exists_by_name()
+    deliveryStatus.delete_status_by_id()
+
+    location = Location()
+    location.add_location()
+    location.get_location_by_id()
+    location.get_all_locations()
+    location.update_location_by_id()
+    location.search_locations()
+    location.exists_by_address()
+    location.exists_by_city()
+    location.exists_by_state_prov()
+    location.exists_by_zip_code()
+    location.exists_by_country()
+    location.exists_by_region()
+    location.exists_by_latitude_and_longitude()
+    location.delete_location_by_id()
 
     user = User()
     user.add_user()
@@ -882,28 +889,37 @@ def run_tests():
     user.get_all_users()
     user.update_user_by_id()
     user.search_user()
+    user.exists_by_username()
+    user.exists_by_email()
     user.delete_user()
 
-    # toy = Toy()
-    # toy.add_toy()
-    # toy.get_toy_by_id()
-    # toy.get_all_toys()
-    # toy.update_toy_by_id()
-    # toy.delete_toy_by_id()
+    toy = Toy()
+    toy.add_toy()
+    toy.get_toy_by_id()
+    toy.get_all_toys()
+    toy.update_toy_by_id()
+    toy.search_toys()
+    toy.delete_toy_by_id()
 
-    # child = Child()
-    # child.add_child()
-    # child.get_child_by_id()
-    # child.get_all_children()
-    # child.update_child_by_id()
-    # child.delete_child_by_id()
+    child = Child()
+    child.add_child()
+    child.get_child_by_id()
+    child.get_all_children()
+    child.update_child_by_id()
+    child.search_children()
+    child.exists_by_child_id_and_is_naughty()
+    child.delete_child_by_id()
 
-    # delivery = Delivery()
-    # delivery.add_delivery()
-    # delivery.get_delivery_by_id()
-    # delivery.get_all_deliveries()
-    # delivery.update_delivery_by_id()
-    # delivery.delete_delivery_by_id()
+    delivery = Delivery()
+    delivery.add_delivery()
+    delivery.get_delivery_by_id()
+    delivery.get_all_deliveries()
+    delivery.update_delivery_by_id()
+    delivery.search_deliveries()
+    delivery.exists_by_child_id_and_toy_id()
+    delivery.exists_by_delivery_status()
+    delivery.exists_by_delivery_date()
+    delivery.delete_delivery_by_id()
 
 if __name__ == '__main__':
     run_tests()

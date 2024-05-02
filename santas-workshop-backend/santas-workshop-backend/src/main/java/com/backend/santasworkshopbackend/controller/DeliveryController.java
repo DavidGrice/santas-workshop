@@ -73,17 +73,17 @@ public class DeliveryController {
         return new ResponseEntity<>(delivery, HttpStatus.OK);
     }
 
-    @GetMapping("/existsByDelivery")
+    @GetMapping("/existsByChildIdAndToyId")
     public ResponseEntity<Boolean> existsByChildIdAndToyId(@RequestParam Long childId, @RequestParam Long toyId) {
         return new ResponseEntity<>(deliveryService.existsByChildIdAndToyId(childId, toyId), HttpStatus.OK);
     }
 
-    @GetMapping("/existsByDeliveryStatus")
+    @GetMapping("/existsByChildIdAndToyIdAndDeliveryStatusId")
     public ResponseEntity<Boolean> existsByChildIdAndToyIdAndDeliveryStatusId(@RequestParam Long childId, @RequestParam Long toyId, @RequestParam Long deliveryStatusId) {
         return new ResponseEntity<>(deliveryService.existsByChildIdAndToyIdAndDeliveryStatusId(childId, toyId, deliveryStatusId), HttpStatus.OK);
     }
 
-    @GetMapping("/existsByDeliveryDate")
+    @GetMapping("/existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate")
     public ResponseEntity<Boolean> existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(@RequestParam Long childId, @RequestParam Long toyId, @RequestParam Long deliveryStatusId, @RequestParam Date deliveryDate) {
         return new ResponseEntity<>(deliveryService.existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(childId, toyId, deliveryStatusId, deliveryDate), HttpStatus.OK);
     }

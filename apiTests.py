@@ -54,6 +54,41 @@ class Description:
         except Exception as e:
             logging.error('Error: %s', e)
 
+    def search_descriptions(self):
+        params = {
+            'id': 1,
+            'name': 'nail',
+            'description': 'Metal nail, used for nailing things.'
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/description/searchDescriptions', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 5: search_descriptions - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def decription_exists_by_name(self, name = "nail"):
+        params = {
+            'name': name
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/description/existsByName', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 6: description_exists_by_name - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def description_exists_by_description(self, description = "Metal nail, used for nailing things."):
+        params = {
+            'description': description
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/description/existsByDescription', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 7: description_exists_by_description - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
     #endregion
 
 class Role:
@@ -75,16 +110,6 @@ class Role:
             #self.assertEqual(response.status_code, 200)
             logging.info('Test 6: get_role_by_id - Status code: %s', response.status_code)
             logging.info('Test 6: get_role_by_id - Response: %s', response.json())
-            return response
-        except Exception as e:
-            logging.error('Error: %s', e)
-
-    def get_role_by_name(self, name = "Admin"):
-        try:
-            response = requests.get(f'{self.BASE_URL}/api/role/getRoleByName/{name}')
-            #self.assertEqual(response.status_code, 200)
-            logging.info('Test 6: get_role_by_name - Status code: %s', response.status_code)
-            logging.info('Test 6: get_role_by_name - Response: %s', response.json())
             return response
         except Exception as e:
             logging.error('Error: %s', e)
@@ -122,6 +147,19 @@ class Role:
             response = requests.delete(f'{self.BASE_URL}/api/role/deleteRole/{id}')
             #self.assertEqual(response.status_code, 200)
             logging.info('Test 9: Delete role - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def search_roles(self):
+        params = {
+            'id': 1,
+            'role_name': 'Admin',
+            'role_description': 'Administrator'
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/role/searchRoles', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 10: search_roles - Status code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
     
@@ -174,6 +212,44 @@ class ChildStatus:
         except Exception as e:
             logging.error('Error: %s', e)
 
+    def search_statuses(self):
+        params = {
+            'id': 1,
+            'status_name': 'Naughty',
+            'status_description': 'Coal in sack cloth.'
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/child_status/searchStatuses', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 15: search_statuses - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def status_exists_by_id_and_name(self, id = 1, name = "Naughty"):
+        params = {
+            'id': id,
+            'name': name
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/child_status/existsByChildIdAndStatusName', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 16: status_exists_by_id_and_name - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def status_exists_by_id_name_and_description(self, id = 1, name = "Naughty", description = "Coal in sack cloth."):
+        params = {
+            'id': id,
+            'name': name,
+            'description': description
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/child_status/existsByChildIdAndStatusNameAndStatusDescription', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 17: status_exists_by_id_name_and_description - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
     #endregion
 
 class DeliveryStatus:
@@ -223,6 +299,30 @@ class DeliveryStatus:
         except Exception as e:
             logging.error('Error: %s', e)
 
+    def search_statuses(self):
+        params = {
+            'id': 1,
+            'status_name': 'Delivered',
+            'status_description': 'Toy has been delivered.'
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/delivery_status/searchStatuses', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 15: search_statuses - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_name(self, name = "Delivered"):
+        params = {
+            'name': name
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/delivery_status/statusExists', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 16: exists_by_name - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
     #endregion
 
 class Location:
@@ -269,6 +369,102 @@ class Location:
             response = requests.delete(f'{self.BASE_URL}/api/location/deleteLocation/{id}')
             #self.assertEqual(response.status_code, 200)
             logging.info('Test 19: delete_location_by_id - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def search_locations(self):
+        params = {
+            'address': '123 Main St',
+            'city': 'Springfield',
+            'state_prov': 'IL',
+            'zip_code': '12345',
+            'country': 'USA',
+            'region': 'Midwest',
+            'latitude': 39.7817,
+            'longitude': -89.6500
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/searchLocations', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 20: search_locations - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def exists_by_address(self, address = "123 Main St"):
+        params = {
+            'address': address
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByAddress', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 21: exists_by_address - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_city(self, city = "Springfield"):
+        params = {
+            'city': city
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByCity', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 22: exists_by_city - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def exists_by_state_prov(self, state_prov = "IL"):
+        params = {
+            'state_prov': state_prov
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByStateProv', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 23: exists_by_state_prov - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_zip_code(self, zip_code = "12345"):
+        params = {
+            'zip_code': zip_code
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByZipCode', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 24: exists_by_zip_code - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_country(self, country = "USA"):
+        params = {
+            'country': country
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByCountry', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 25: exists_by_country - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_region(self, region = "Midwest"):
+        params = {
+            'region': region
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByRegion', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 26: exists_by_region - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_latitude_and_longitude(self, latitude = 39.7817, longitude = -89.6500):
+        params = {
+            'latitude': latitude,
+            'longitude': longitude
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/location/existsByLatitudeAndLongitude', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 27: exists_by_latitude_and_longitude - Status code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
 
@@ -377,6 +573,29 @@ class User:
             logging.info('Test 25: Search user - Response: %s', response.json())
         except Exception as e:
             logging.error('Error: %s', e)
+
+    def exists_by_username(self, username = "admin"):
+        params = {
+            'username': username
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/user/existsByUsername', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 26: exists_by_username - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def exists_by_email(self, email = "admin@example.com"):
+        params = {
+            'email': email
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/user/existsByEmail', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 27: exists_by_email - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
     #endregion
 
 class Toy:
@@ -423,6 +642,23 @@ class Toy:
             response = requests.delete(f'{self.BASE_URL}/api/toy/deleteToy/{id}')
             #self.assertEqual(response.status_code, 200)
             logging.info('Test 29: Delete toy - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def search_toys(self):
+        params = {
+            'name': 'Teddy Bear',
+            'description_id': 1,
+            'added_by': 1,
+            'added_date': '2022-01-01T00:00:00Z',
+            'updated_by': 1,
+            'updated_date': '2022-01-01T00:00:00Z',
+            'quantity': 10
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/toy/searchToys', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 30: search_toys - Status code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
 
@@ -474,6 +710,34 @@ class Child:
             logging.info('Test 34: Delete child - Status code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
+
+    def search_children(self):
+        params = {
+            'id': 1,
+            'first_name': 'Jimmy',
+            'last_name': 'Doe',
+            'age': 5,
+            'status_id': 1,
+            'location_id': 1
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/child/searchChildren', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 35: search_children - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def exists_by_child_id_and_is_naughty(self):
+        params = {
+            'id': 1,
+            'isNaughty': 1
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/child/existsByChildIdAndIsNaughty', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 36: exists_by_child_id_and_is_naughty - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
     
     #endregion
 
@@ -521,6 +785,61 @@ class Delivery:
             response = requests.delete(f'{self.BASE_URL}/api/deliveries/deleteDelivery/{id}')
             #self.assertEqual(response.status_code, 200)
             logging.info('Test 39: Delete delivery - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def search_deliveries(self):
+        params = {
+            'id': 1,
+            'child_id': 1,
+            'location_id': 1,
+            'toy_id': 1,
+            'status_id': 1,
+            'delivered_date': '2021-12-01'
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/deliveries/searchDeliveries', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 40: search_deliveries - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_child_id_and_toy_id(self, child_id = 1, toy_id = 1):
+        params = {
+            'child_id': child_id,
+            'toy_id': toy_id
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/deliveries/existsByChildIdAndToyId', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 41: exists_by_child_id_and_toy_id - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+    
+    def exists_by_delivery_status(self, child_id = 1, toy_id = 1, status_id = 1):
+        params = {
+            'child_id': child_id,
+            'toy_id': toy_id,
+            'status_id': status_id
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/deliveries/existsByChildIdAndToyIdAndDeliveryStatusId', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 41: exists_by_delivery_status - Status code: %s', response.status_code)
+        except Exception as e:
+            logging.error('Error: %s', e)
+
+    def exists_by_delivery_date(self, child_id = 1, toy_id = 1, status_id = 1, delivery_date = "2021-12-01"):
+        params = {
+            'child_id': child_id,
+            'toy_id': toy_id,
+            'status_id': status_id,
+            'delivery_date': delivery_date
+        }
+        try:
+            response = requests.get(f'{self.BASE_URL}/api/deliveries/existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate', params=params)
+            #self.assertEqual(response.status_code, 200)
+            logging.info('Test 41: exists_by_delivery_date - Status code: %s', response.status_code)
         except Exception as e:
             logging.error('Error: %s', e)
 

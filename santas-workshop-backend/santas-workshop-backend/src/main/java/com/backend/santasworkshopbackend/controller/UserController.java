@@ -73,14 +73,14 @@ public class UserController {
         return userService.searchUsers(email, userName, password, firstName, lastName, roleID, pageable);
     }
 
-    @GetMapping("/exists/{username}")
-    public ResponseEntity<Boolean> existsByUsername(@PathVariable String username) {
+    @GetMapping("/existsByUsername")
+    public ResponseEntity<Boolean> existsByUsername(@RequestParam String username) {
         boolean exists = userService.existsByUsername(username);
         return ResponseEntity.ok(exists);
     }
 
-    @GetMapping("/exists/{email}")
-    public ResponseEntity<Boolean> existsByEmail(@PathVariable String email) {
+    @GetMapping("/existsByEmail")
+    public ResponseEntity<Boolean> existsByEmail(@RequestParam String email) {
         boolean exists = userService.existsByEmail(email);
         return ResponseEntity.ok(exists);
     }

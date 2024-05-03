@@ -23,13 +23,13 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE delivery_statuses (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     status_name VARCHAR(255) NOT NULL,
     status_description VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE child_statuses (
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     status_name VARCHAR(255) NOT NULL,
     status_description VARCHAR(255) NOT NULL
 );
@@ -75,7 +75,7 @@ CREATE TABLE children (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    age INTEGER,
+    birthdate DATE,
     status_id INTEGER,
     location_id INTEGER,
     FOREIGN KEY (location_id) REFERENCES locations(id),
@@ -92,18 +92,19 @@ CREATE TABLE deliveries (
     id SERIAL PRIMARY KEY,
     child_id INTEGER NOT NULL,
     location_id INTEGER NOT NULL,
-    toy_id INTEGER NOT NULL,
+    wishlist_id INTEGER NOT NULL,
     status_id INTEGER,
     delivered_date DATE,
     FOREIGN KEY (child_id) REFERENCES children(id),
     FOREIGN KEY (location_id) REFERENCES locations(id),
-    FOREIGN KEY (toy_id) REFERENCES toys(id),
+    FOREIGN KEY (wishlist_id) REFERENCES wishlists(id),
     FOREIGN KEY (status_id) REFERENCES delivery_statuses(id)
 );
 
 SELECT * FROM descriptions;
 SELECT * FROM roles;
-SELECT * FROM statuses;
+SELECT * FROM child_statuses;
+SELECT * FROM delivery_statuses;
 SELECT * FROM locations;
 SELECT * FROM users;
 SELECT * FROM toys;

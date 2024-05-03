@@ -20,8 +20,8 @@ public class DeliveryDTO {
     private Long childID;
     @JsonProperty("location_id")
     private Long locationID;
-    @JsonProperty("toy_id")
-    private Long toyID;
+    @JsonProperty("wishlist_id")
+    private Long wishlistID;
     @JsonProperty("status_id")
     private Long statusID;
     @JsonProperty("delivered_date")
@@ -32,7 +32,7 @@ public class DeliveryDTO {
         this.id = delivery.getId();
         this.childID = delivery.getChildID().getId();
         this.locationID = delivery.getLocationID().getId();
-        this.toyID = delivery.getToyID().getId();
+        this.wishlistID = delivery.getWishlistID().getId();
         this.statusID = delivery.getStatusID().getId();
         this.deliveredDate = delivery.getDeliveredDate();
     }

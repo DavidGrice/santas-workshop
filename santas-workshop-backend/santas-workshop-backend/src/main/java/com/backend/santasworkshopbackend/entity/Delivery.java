@@ -29,8 +29,8 @@ public class Delivery {
     private Location locationID;
 
     @ManyToOne
-    @JoinColumn(name = "toy_id", nullable = false)
-    private Toy toyID;
+    @JoinColumn(name = "wishlist_id", nullable = false)
+    private Wishlist wishlistID;
 
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
@@ -45,7 +45,7 @@ public class Delivery {
             this.id = delivery.getId();
             this.childID = delivery.getChildID();
             this.locationID = delivery.getLocationID();
-            this.toyID = delivery.getToyID();
+            this.wishlistID = delivery.getWishlistID();
             this.statusID = delivery.getStatusID();
             this.deliveredDate = delivery.getDeliveredDate();
         }

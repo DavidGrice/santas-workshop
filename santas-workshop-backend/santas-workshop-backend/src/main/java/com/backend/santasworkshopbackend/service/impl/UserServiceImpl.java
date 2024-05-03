@@ -43,17 +43,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
 
-        // Logger.info(userDTO.getEmail() + " " + userDTO.getUserName() + " " + userDTO.getPassword() + " " + userDTO.getFirstName() + " " + userDTO.getLastName() + " " + userDTO.getRoleID());
+        // Logger.info(userDTO.getEmail() + " " + userDTO.getUsername() + " " + userDTO.getPassword() + " " + userDTO.getFirstName() + " " + userDTO.getLastName() + " " + userDTO.getRoleID());
         // Role role = roleRepository.findById(userDTO.getRoleID())
         //     .orElseThrow(() -> new RuntimeException("Role not found"));
         // User user = modelMapper.map(userDTO, User.class);
         // user.setRole(role);
-        // Logger.info(user.getEmail() + " " + user.getUserName() + " " + user.getPassword() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getRole());
+        // Logger.info(user.getEmail() + " " + user.getUsername() + " " + user.getPassword() + " " + user.getFirstName() + " " + user.getLastName() + " " + user.getRole());
         // User savedUser = userRepository.save(user);
 
         User user = new User();
         user.setEmail(userDTO.getEmail());
-        user.setUserName(userDTO.getUserName());
+        user.setUsername(userDTO.getUsername());
         user.setPassword(userDTO.getPassword());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO updateUser(UserDTO user) {
         User existingUser = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User not found"));
         existingUser.setEmail(user.getEmail());
-        existingUser.setUserName(user.getUserName());
+        existingUser.setUsername(user.getUsername());
         existingUser.setPassword(user.getPassword());
         existingUser.setFirstName(user.getFirstName());
         existingUser.setLastName(user.getLastName());
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
             spec = spec.and(new UserSpecification(new SearchCriteria("email", ":", email)));
         }
         if (StringUtils.hasText(userName)) {
-            spec = spec.and(new UserSpecification(new SearchCriteria("userName", ":", userName)));
+            spec = spec.and(new UserSpecification(new SearchCriteria("username", ":", userName)));
         }
         if (StringUtils.hasText(password)) {
             spec = spec.and(new UserSpecification(new SearchCriteria("password", ":", password)));

@@ -6,12 +6,12 @@ import com.backend.santasworkshopbackend.entity.Child;
 import com.backend.santasworkshopbackend.entity.Delivery;
 import com.backend.santasworkshopbackend.entity.DeliveryStatus;
 import com.backend.santasworkshopbackend.entity.Location;
-import com.backend.santasworkshopbackend.entity.Toy;
+import com.backend.santasworkshopbackend.entity.Wishlist;
 import com.backend.santasworkshopbackend.repository.ChildRepository;
 import com.backend.santasworkshopbackend.repository.DeliveryRepository;
 import com.backend.santasworkshopbackend.repository.DeliveryStatusRepository;
 import com.backend.santasworkshopbackend.repository.LocationRepository;
-import com.backend.santasworkshopbackend.repository.ToyRepository;
+import com.backend.santasworkshopbackend.repository.WishlistRepository;
 import com.backend.santasworkshopbackend.service.DeliveryService;
 import com.backend.santasworkshopbackend.specification.DeliverySpecification;
 import com.backend.santasworkshopbackend.specification.SearchCriteria;
@@ -34,19 +34,19 @@ public class DeliveryServiceImpl implements DeliveryService{
     private ChildRepository childRepository;
     private DeliveryRepository deliveryRepository;
     private LocationRepository locationRepository;
-    private ToyRepository toyRepository;
+    private WishlistRepository wishlistRepository;
     private ModelMapper modelMapper;
 
     private static final Logger Logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
 
     @Autowired
-    public DeliveryServiceImpl(DeliveryRepository deliveryRepository, ModelMapper modelMapper, DeliveryStatusRepository statusRepository, ChildRepository childRepository, LocationRepository locationRepository, ToyRepository toyRepository) {
+    public DeliveryServiceImpl(DeliveryRepository deliveryRepository, ModelMapper modelMapper, DeliveryStatusRepository statusRepository, ChildRepository childRepository, LocationRepository locationRepository, WishlistRepository wishlistRepository) {
         this.deliveryRepository = deliveryRepository;
         this.modelMapper = modelMapper;
         this.statusRepository = statusRepository;
         this.childRepository = childRepository;
         this.locationRepository = locationRepository;
-        this.toyRepository = toyRepository;
+        this.wishlistRepository = wishlistRepository;
     }
 
     @Override
@@ -61,9 +61,9 @@ public class DeliveryServiceImpl implements DeliveryService{
             .orElseThrow(() -> new RuntimeException("Location not found"));
         delivery.setLocationID(location);
 
-        Toy toy = toyRepository.findById(deliveryDTO.getToyID())
-            .orElseThrow(() -> new RuntimeException("Toy not found"));
-        delivery.setToyID(toy);
+        Wishlist wishlist = wishlistRepository.findById(deliveryDTO.getWishlistID())
+            .orElseThrow(() -> new RuntimeException("Wishlist not found"));
+        delivery.setWishlistID(wishlist);
 
         DeliveryStatus status = statusRepository.findById(deliveryDTO.getStatusID())
             .orElseThrow(() -> new RuntimeException("Status not found"));
@@ -93,12 +93,12 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public Page<DeliveryDTO> getAllDeliveries(Pageable pagedToys) {
+    public Page<DeliveryDTO> getAllDeliveries(Pageable pagedDeliveries) {
 
-        // List<Toy> toys = toyRepository.findAll();
-        // return toys.stream().map(toy -> modelMapper.map(toy, ToyDTO.class)).collect(Collectors.toList());
+        // List<wishlist> wishlists = wishlistRepository.findAll();
+        // return wishlists.stream().map(wishlist -> modelMapper.map(wishlist, wishlistDTO.class)).collect(Collectors.toList());
 
-        return deliveryRepository.findAll(pagedToys).map(delivery -> modelMapper.map(delivery, DeliveryDTO.class));
+        return deliveryRepository.findAll(pagedDeliveries).map(delivery -> modelMapper.map(delivery, DeliveryDTO.class));
     }
 
     @Override
@@ -119,9 +119,9 @@ public class DeliveryServiceImpl implements DeliveryService{
             .orElseThrow(() -> new RuntimeException("Location not found"));
         existingDelivery.setLocationID(location);
 
-        Toy toy = toyRepository.findById(deliveryDTO.getToyID())
-            .orElseThrow(() -> new RuntimeException("Toy not found"));
-        existingDelivery.setToyID(toy);
+        Wishlist wishlist = wishlistRepository.findById(deliveryDTO.getWishlistID())
+            .orElseThrow(() -> new RuntimeException("Wishlist not found"));
+        existingDelivery.setWishlistID(wishlist);
 
         Delivery updatedDelivery = deliveryRepository.save(existingDelivery);
         return modelMapper.map(updatedDelivery, DeliveryDTO.class);
@@ -133,7 +133,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long toyId, Long deliveryStatusId, Date deliveryDate, Pageable pagedDeliveries) {
+    public Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long wishlistId, Long deliveryStatusId, Date deliveryDate, Pageable pagedDeliveries) {
         Specification<Delivery> spec = Specification.where(null);
 
         if (id != null) {
@@ -142,8 +142,8 @@ public class DeliveryServiceImpl implements DeliveryService{
         if (childId != null) {
             spec = spec.and(new DeliverySpecification(new SearchCriteria("childID", ":", childId)));
         }
-        if (toyId != null) {
-            spec = spec.and(new DeliverySpecification(new SearchCriteria("toyID", ":", toyId)));
+        if (wishlistId != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("wishlistID", ":", wishlistId)));
         }
         if (deliveryStatusId != null) {
             spec = spec.and(new DeliverySpecification(new SearchCriteria("statusID", ":", deliveryStatusId)));
@@ -156,18 +156,18 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public boolean existsByChildIdAndToyId(Long childId, Long toyId) {
-        return deliveryRepository.existsByChildIdAndToyId(childId, toyId);
+    public boolean existsByChildID_IdAndWishlistID_Id(Long childId, Long wishlistId) {
+        return deliveryRepository.existsByChildID_IdAndWishlistID_Id(childId, wishlistId);
     }
 
     @Override
-    public boolean existsByChildIdAndToyIdAndDeliveryStatusId(Long childId, Long toyId, Long deliveryStatusId) {
-        return deliveryRepository.existsByChildIdAndToyIdAndDeliveryStatusId(childId, toyId, deliveryStatusId);
+    public boolean existsByChildID_IdAndWishlistID_IdAndStatusID_Id(Long childId, Long wishlistId, Long deliveryStatusId) {
+        return deliveryRepository.existsByChildID_IdAndWishlistID_IdAndStatusID_Id(childId, wishlistId, deliveryStatusId);
     }
 
     @Override
-    public boolean existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(Long childId, Long toyId, Long deliveryStatusId, Date deliveryDate) {
-        return deliveryRepository.existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(childId, toyId, deliveryStatusId, deliveryDate);
+    public boolean existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate(Long childId, Long wishlistId, Long deliveryStatusId, Date deliveryDate) {
+        return deliveryRepository.existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate(childId, wishlistId, deliveryStatusId, deliveryDate);
     }
     
 }

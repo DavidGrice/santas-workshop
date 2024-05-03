@@ -86,8 +86,8 @@ public class WishlistServiceImpl implements WishlistService {
     }
 
     @Override
-    public boolean existsByIdAndWishlistIsNotNull(Long id, Long childID) {
-        return wishlistRepository.existsByIdAndWishlistIsNotNull(id, childID);
+    public boolean existsByIdAndChild_Id(Long id, Long childID) {
+        return wishlistRepository.existsByIdAndChild_Id(id, childID);
     }
     
 }

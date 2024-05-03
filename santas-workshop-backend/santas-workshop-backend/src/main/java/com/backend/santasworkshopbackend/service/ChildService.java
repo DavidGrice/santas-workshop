@@ -1,6 +1,7 @@
 package com.backend.santasworkshopbackend.service;
 
 
+import java.sql.Date;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public interface ChildService {
     Page<ChildDTO> getAllChildren(Pageable pagedChild);
     ChildDTO updateChild(ChildDTO childDTO);
     void deleteChild(Long id);
-    Page<ChildDTO> searchChildren(Long id, String firstName, String lastName, Integer age, Long statusID, Long locationId, Pageable pagedChild);
-    boolean existsByIdAndIsNaughty(Long id, Long statusID);
+    Page<ChildDTO> searchChildren(Long id, String firstName, String lastName, Date birthdate, Long statusID, Long locationId, Pageable pagedChild);
+    boolean existsByIdAndStatusID_StatusName(Long id, String statusName);
     
 }

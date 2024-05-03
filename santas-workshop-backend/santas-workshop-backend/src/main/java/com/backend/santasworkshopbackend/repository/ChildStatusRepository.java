@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.backend.santasworkshopbackend.entity.ChildStatus;
 
 public interface ChildStatusRepository extends JpaRepository<ChildStatus, Long>, JpaSpecificationExecutor<ChildStatus> {
-    boolean existsByChildIdAndStatusName(Long childId, String statusName);
-    boolean existsByChildIdAndStatusNameAndStatusDescription(Long childId, String statusName, String statusDescription);
+    boolean existsByIdAndStatusName(Long id, String statusName);
+    boolean existsByIdAndStatusNameAndStatusDescription(Long id, String statusName, String statusDescription);
 }

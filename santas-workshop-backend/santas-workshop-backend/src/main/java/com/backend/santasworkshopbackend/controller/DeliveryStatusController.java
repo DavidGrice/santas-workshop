@@ -71,9 +71,9 @@ public class DeliveryStatusController {
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
-    @GetMapping("/existsByStatus")
-    public ResponseEntity<Boolean> existsByStatus(@RequestParam String statusName) {
-        return new ResponseEntity<>(statusService.existsByStatus(statusName), HttpStatus.OK);
+    @GetMapping("/existsByStatusName/{statusName}")
+    public ResponseEntity<Boolean> existsByStatusName(@PathVariable("statusName") String statusName) {
+        return new ResponseEntity<>(statusService.existsByStatusName(statusName), HttpStatus.OK);
     }
 
 }

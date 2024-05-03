@@ -50,7 +50,7 @@ public class Mapper {
             protected void configure() {
                 map().setChildID(source.getChildID().getId());
                 map().setLocationID(source.getLocationID().getId());
-                map().setToyID(source.getToyID().getId());
+                map().setWishlistID(source.getWishlistID().getId());
                 map().setStatusID(source.getStatusID().getId());
             }
         });

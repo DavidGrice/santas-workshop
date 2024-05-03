@@ -1,7 +1,7 @@
 package com.backend.santasworkshopbackend.entity;
 
+import java.sql.Date;
 import javax.persistence.*;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +24,8 @@ public class Child {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    @Column(name = "birthdate", nullable = false)
+    private Date birthdate;
 
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
@@ -41,7 +41,7 @@ public class Child {
             this.id = child.getId();
             this.firstName = child.getFirstName();
             this.lastName = child.getLastName();
-            this.age = child.getAge();
+            this.birthdate = child.getBirthdate();
             this.statusID = child.getStatusID();
             this.locationID = child.getLocationID();
         }

@@ -64,13 +64,13 @@ public class UserController {
     @GetMapping("/searchUsers")
     public Page<UserDTO> searchUsers(
             @RequestParam(required = false) String email,
-            @RequestParam(required = false) String userName,
+            @RequestParam(required = false) String username,
             @RequestParam(required = false) String password,
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) Long roleID,
             Pageable pageable) {
-        return userService.searchUsers(email, userName, password, firstName, lastName, roleID, pageable);
+        return userService.searchUsers(email, username, password, firstName, lastName, roleID, pageable);
     }
 
     @GetMapping("/existsByUsername")

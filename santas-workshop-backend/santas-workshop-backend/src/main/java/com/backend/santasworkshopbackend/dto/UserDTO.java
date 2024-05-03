@@ -19,7 +19,7 @@ public class UserDTO {
     @JsonProperty("email")
     private String email;
     @JsonProperty("username")
-    private String userName;
+    private String username;
     @JsonProperty("password")
     private String password; // Consider not including this in the DTO for security reasons
     @JsonProperty("firstName")
@@ -32,7 +32,7 @@ public class UserDTO {
     public UserDTO(User user, boolean shallow) {
         this.id = user.getId();
         this.email = user.getEmail();
-        this.userName = user.getUserName();
+        this.username = user.getUsername();
         this.password = user.getPassword();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();

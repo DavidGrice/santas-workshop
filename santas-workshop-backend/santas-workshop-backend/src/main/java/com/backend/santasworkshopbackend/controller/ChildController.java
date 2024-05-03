@@ -1,8 +1,8 @@
 package com.backend.santasworkshopbackend.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,17 +68,17 @@ public class ChildController {
                                                          @RequestParam(required = false) String lastName,
                                                          @RequestParam(required = false) String childAddress,
                                                          @RequestParam(required = false) String childCity,
-                                                         @RequestParam(required = false) Integer age,
+                                                         @RequestParam(required = false) Date birthdate,
                                                          @RequestParam(required = false) Long statusID,
                                                          @RequestParam(required = false) Long locationId,
                                                          Pageable pageable) {
-        Page<ChildDTO> children = childService.searchChildren(id, firstName, lastName, age, statusID, locationId, pageable);
+        Page<ChildDTO> children = childService.searchChildren(id, firstName, lastName, birthdate, statusID, locationId, pageable);
         return new ResponseEntity<>(children, HttpStatus.OK);
     }
 
-    @GetMapping("/existsByChildIdAndIsNaughty")
-    public ResponseEntity<Boolean> existsByIdAndIsNaughty(@RequestParam Long id, @RequestParam Long isNaughty) {
-        return new ResponseEntity<>(childService.existsByIdAndIsNaughty(id, isNaughty), HttpStatus.OK);
+    @GetMapping("/existsByIdAndStatusID_StatusName")
+    public ResponseEntity<Boolean> existsByIdAndStatusID_StatusName(@RequestParam Long id, @RequestParam String statusName) {
+        return new ResponseEntity<>(childService.existsByIdAndStatusID_StatusName(id, statusName), HttpStatus.OK);
     }
 
     

@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.backend.santasworkshopbackend.entity.Wishlist;
 
 public interface WishlistRepository extends JpaRepository<Wishlist, Long>, JpaSpecificationExecutor<Wishlist> {
-    boolean existsByIdAndWishlistIsNotNull(Long id, Long childID);
-} 
+    boolean existsByIdAndChild_Id(Long id, Long childID);
+}

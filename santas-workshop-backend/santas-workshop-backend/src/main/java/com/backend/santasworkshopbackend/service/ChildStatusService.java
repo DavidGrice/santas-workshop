@@ -14,7 +14,7 @@ public interface ChildStatusService {
     ChildStatusDTO updateStatus(ChildStatusDTO statusDTO);
     void deleteStatus(Long id);
     Page<ChildStatusDTO> searchStatuses(Long id, String statusName, String statusDescription, Pageable pageable);
-    boolean existsByChildIdAndStatusName(Long childId, String statusName);
-    boolean existsByChildIdAndStatusNameAndStatusDescription(Long childId, String statusName, String statusDescription);
+    boolean existsByIdAndStatusName(Long id, String statusName);
+    boolean existsByIdAndStatusNameAndStatusDescription(Long id, String statusName, String statusDescription);
     
 }

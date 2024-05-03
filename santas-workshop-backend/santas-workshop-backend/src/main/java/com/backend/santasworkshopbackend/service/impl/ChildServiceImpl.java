@@ -1,5 +1,6 @@
 package com.backend.santasworkshopbackend.service.impl;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -47,7 +48,7 @@ public class ChildServiceImpl implements ChildService {
 
         child.setFirstName(childDTO.getFirstName());
         child.setLastName(childDTO.getLastName());
-        child.setAge(childDTO.getAge());
+        child.setBirthdate(childDTO.getBirthdate());
 
         ChildStatus status = statusRepository.findById(childDTO.getStatusID())
             .orElseThrow(() -> new RuntimeException("Status not found"));
@@ -89,7 +90,7 @@ public class ChildServiceImpl implements ChildService {
             .orElseThrow(() -> new RuntimeException("Child not found"));
         existingChild.setFirstName(childDTO.getFirstName());
         existingChild.setLastName(childDTO.getLastName());
-        existingChild.setAge(childDTO.getAge());
+        existingChild.setBirthdate(childDTO.getBirthdate());
 
         ChildStatus status = statusRepository.findById(childDTO.getStatusID())
             .orElseThrow(() -> new RuntimeException("Status not found"));
@@ -109,7 +110,7 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public Page<ChildDTO> searchChildren(Long id, String firstName, String lastName, Integer age, Long statusId, Long locationId, Pageable pageable) {
+    public Page<ChildDTO> searchChildren(Long id, String firstName, String lastName, Date birthdate, Long statusId, Long locationId, Pageable pageable) {
         Specification<Child> spec = Specification.where(null);
 
         if (id != null) {
@@ -126,8 +127,8 @@ public class ChildServiceImpl implements ChildService {
             spec = spec.and(specLastName);
         }
 
-        if (age != null) {
-            Specification<Child> specAge = new ChildSpecification(new SearchCriteria("age", ":", age));
+        if (birthdate != null) {
+            Specification<Child> specAge = new ChildSpecification(new SearchCriteria("birthdate", ":", birthdate));
             spec = spec.and(specAge);
         }
 
@@ -146,8 +147,8 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public boolean existsByIdAndIsNaughty(Long id, Long statusID) {
-        return childRepository.existsByIdAndIsNaughty(id, statusID);
+    public boolean existsByIdAndStatusID_StatusName(Long id, String statusName) {
+        return childRepository.existsByIdAndStatusID_StatusName(id, statusName);
     }
     
 }

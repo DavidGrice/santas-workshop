@@ -71,14 +71,14 @@ public class ChildStatusController {
         return new ResponseEntity<>(statuses, HttpStatus.OK);
     }
 
-    @GetMapping("/existsByChildIdAndStatusName")
-    public ResponseEntity<Boolean> existsByChildIdAndStatusName(@RequestParam Long childId, @RequestParam String statusName) {
-        return new ResponseEntity<>(statusService.existsByChildIdAndStatusName(childId, statusName), HttpStatus.OK);
+    @GetMapping("/existsByIdAndStatusName/{id}/{statusName}")
+    public ResponseEntity<Boolean> existsByIdAndStatusName(@PathVariable Long id, @PathVariable String statusName) {
+        return new ResponseEntity<>(statusService.existsByIdAndStatusName(id, statusName), HttpStatus.OK);
     }
-
-    @GetMapping("/existsByChildIdAndStatusNameAndStatusDescription")
-    public ResponseEntity<Boolean> existsByChildIdAndStatusNameAndStatusDescription(@RequestParam Long childId, @RequestParam String statusName, @RequestParam String statusDescription) {
-        return new ResponseEntity<>(statusService.existsByChildIdAndStatusNameAndStatusDescription(childId, statusName, statusDescription), HttpStatus.OK);
+    
+    @GetMapping("/existsByIdAndStatusNameAndStatusDescription/{id}/{statusName}/{statusDescription}")
+    public ResponseEntity<Boolean> existsByIdAndStatusNameAndStatusDescription(@PathVariable Long id, @PathVariable String statusName, @PathVariable String statusDescription) {
+        return new ResponseEntity<>(statusService.existsByIdAndStatusNameAndStatusDescription(id, statusName, statusDescription), HttpStatus.OK);
     }
 
 }

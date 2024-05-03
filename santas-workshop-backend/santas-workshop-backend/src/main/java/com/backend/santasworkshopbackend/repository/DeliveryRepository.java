@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.backend.santasworkshopbackend.entity.Delivery;
 
 public interface DeliveryRepository extends JpaRepository<Delivery, Long>, JpaSpecificationExecutor<Delivery> {
-    boolean existsByChildIdAndToyId(Long childId, Long toyId);
-    boolean existsByChildIdAndToyIdAndDeliveryStatusId(Long childId, Long toyId, Long deliveryStatusId);
-    boolean existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(Long childId, Long toyId, Long deliveryStatusId, Date deliveredDate);
+    boolean existsByChildID_IdAndWishlistID_Id(Long childId, Long wishlistId);
+    boolean existsByChildID_IdAndWishlistID_IdAndStatusID_Id(Long childId, Long wishlistId, Long deliveryStatusId);
+    boolean existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate(Long childId, Long wishlistId, Long deliveryStatusId, Date deliveredDate);
 }

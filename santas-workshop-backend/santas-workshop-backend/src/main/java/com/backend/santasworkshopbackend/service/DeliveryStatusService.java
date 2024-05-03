@@ -14,6 +14,6 @@ public interface DeliveryStatusService {
     DeliveryStatusDTO updateStatus(DeliveryStatusDTO statusDTO);
     void deleteStatus(Long id);
     Page<DeliveryStatusDTO> searchStatuses(Long id, String statusName, String statusDescription, Pageable pagedStatuses);
-    boolean existsByStatus(String statusName);
+    boolean existsByStatusName(String statusName);
     
 }

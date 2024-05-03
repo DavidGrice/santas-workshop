@@ -87,23 +87,26 @@ public class ChildStatusServiceImpl implements ChildStatusService {
             spec = spec.and(new ChildStatusSpecification(new SearchCriteria("id", ":", id)));
         }
         if (StringUtils.hasText(statusName)) {
-            spec = spec.and(new ChildStatusSpecification(new SearchCriteria("statusName", ":", statusName)));
+            spec = spec.and(new ChildStatusSpecification(new SearchCriteria("stat", ":", statusName)));
         }
         if (StringUtils.hasText(statusDescription)) {
-            spec = spec.and(new ChildStatusSpecification(new SearchCriteria("statusDescription", ":", statusDescription)));
+            spec = spec.and(new ChildStatusSpecification(new SearchCriteria("status_description", ":", statusDescription)));
         }
 
         return statusRepository.findAll(spec, pageable).map(status -> new ChildStatusDTO(status, true));
     }
 
     @Override
-    public boolean existsByChildIdAndStatusName(Long childId, String statusName) {
-        return statusRepository.existsByChildIdAndStatusName(childId, statusName);
+    public boolean existsByIdAndStatusName(Long id, String statusName) {
+        Logger.info(statusName);
+        return statusRepository.existsByIdAndStatusName(id, statusName);
     }
 
     @Override
-    public boolean existsByChildIdAndStatusNameAndStatusDescription(Long childId, String statusName, String statusDescription) {
-        return statusRepository.existsByChildIdAndStatusNameAndStatusDescription(childId, statusName, statusDescription);
+    public boolean existsByIdAndStatusNameAndStatusDescription(Long id, String statusName, String statusDescription) {
+        Logger.info(statusName);
+        Logger.info(statusDescription);
+        return statusRepository.existsByIdAndStatusNameAndStatusDescription(id, statusName, statusDescription);
     }
     
 }

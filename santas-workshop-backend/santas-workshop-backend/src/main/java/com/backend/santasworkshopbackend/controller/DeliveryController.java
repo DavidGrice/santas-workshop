@@ -65,27 +65,27 @@ public class DeliveryController {
     @GetMapping("/searchDeliveries")
     public ResponseEntity<Page<DeliveryDTO>> searchDeliveries(@RequestParam(required = false) Long id,
                                                               @RequestParam(required = false) Long childId,
-                                                              @RequestParam(required = false) Long toyId,
+                                                              @RequestParam(required = false) Long wishlistId,
                                                               @RequestParam(required = false) Long deliveryStatusId,
                                                               @RequestParam(required = false) Date deliveryDate,
                                                               Pageable pagedDeliveries) {
-        Page <DeliveryDTO> delivery = deliveryService.searchDeliveries(id, childId, toyId, deliveryStatusId, deliveryDate, pagedDeliveries);
+        Page <DeliveryDTO> delivery = deliveryService.searchDeliveries(id, childId, wishlistId, deliveryStatusId, deliveryDate, pagedDeliveries);
         return new ResponseEntity<>(delivery, HttpStatus.OK);
     }
 
-    @GetMapping("/existsByChildIdAndToyId")
-    public ResponseEntity<Boolean> existsByChildIdAndToyId(@RequestParam Long childId, @RequestParam Long toyId) {
-        return new ResponseEntity<>(deliveryService.existsByChildIdAndToyId(childId, toyId), HttpStatus.OK);
+    @GetMapping("/existsByChildID_IdAndWishlistID_Id")
+    public ResponseEntity<Boolean> existsByChildID_IdAndWishlistID_Id(@RequestParam Long childId, @RequestParam Long wishlistId) {
+        return new ResponseEntity<>(deliveryService.existsByChildID_IdAndWishlistID_Id(childId, wishlistId), HttpStatus.OK);
     }
 
-    @GetMapping("/existsByChildIdAndToyIdAndDeliveryStatusId")
-    public ResponseEntity<Boolean> existsByChildIdAndToyIdAndDeliveryStatusId(@RequestParam Long childId, @RequestParam Long toyId, @RequestParam Long deliveryStatusId) {
-        return new ResponseEntity<>(deliveryService.existsByChildIdAndToyIdAndDeliveryStatusId(childId, toyId, deliveryStatusId), HttpStatus.OK);
+    @GetMapping("/existsByChildID_IdAndWishlistID_IdAndStatusID_Id")
+    public ResponseEntity<Boolean> existsByChildIdAndWishlistIdAndDeliveryStatusId(@RequestParam Long childId, @RequestParam Long wishlistId, @RequestParam Long deliveryStatusId) {
+        return new ResponseEntity<>(deliveryService.existsByChildID_IdAndWishlistID_IdAndStatusID_Id(childId, wishlistId, deliveryStatusId), HttpStatus.OK);
     }
 
-    @GetMapping("/existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate")
-    public ResponseEntity<Boolean> existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(@RequestParam Long childId, @RequestParam Long toyId, @RequestParam Long deliveryStatusId, @RequestParam Date deliveryDate) {
-        return new ResponseEntity<>(deliveryService.existsByChildIdAndToyIdAndDeliveryStatusIdAndDeliveryDate(childId, toyId, deliveryStatusId, deliveryDate), HttpStatus.OK);
+    @GetMapping("/existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate")
+    public ResponseEntity<Boolean> existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate(@RequestParam Long childId, @RequestParam Long wishlistId, @RequestParam Long deliveryStatusId, @RequestParam Date deliveryDate) {
+        return new ResponseEntity<>(deliveryService.existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate(childId, wishlistId, deliveryStatusId, deliveryDate), HttpStatus.OK);
     }
     
 }

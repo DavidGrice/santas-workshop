@@ -99,8 +99,8 @@ public class DeliveryStatusServiceImpl implements DeliveryStatusService {
     }
 
     @Override
-    public boolean existsByStatus(String statusName) {
-        return statusRepository.existsByStatus(statusName);
+    public boolean existsByStatusName(String statusName) {
+        return statusRepository.existsByStatusName(statusName);
     }
     
 }

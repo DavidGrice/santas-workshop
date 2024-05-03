@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.backend.santasworkshopbackend.entity.Child;
 
 public interface ChildRepository extends JpaRepository<Child, Long>, JpaSpecificationExecutor<Child> {
-    boolean existsByIdAndIsNaughty(Long id, Long statusID);
+    boolean existsByIdAndStatusID_StatusName(Long id, String statusName);
 }

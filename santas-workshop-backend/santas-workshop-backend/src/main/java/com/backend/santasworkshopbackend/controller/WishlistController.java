@@ -69,9 +69,10 @@ public class WishlistController {
         return wishlistService.searchWishlists(name, childID, pagedWishlist);
     }
 
-    @GetMapping("/exists/{id}/{childId}")
-    public ResponseEntity<Boolean> existsByIdAndWishlistIsNotNull(@PathVariable Long id, @PathVariable Long childId) {
-        boolean exists = wishlistService.existsByIdAndWishlistIsNotNull(id, childId);
+    @GetMapping("/existsByIdAndChild_Id")
+    public ResponseEntity<Boolean> existsByIdAndChild_Id(@RequestParam(required = false) Long id, 
+                                                         @RequestParam(required = false) Long childId) {
+        boolean exists = wishlistService.existsByIdAndChild_Id(id, childId);
         return ResponseEntity.ok(exists);
     }
     

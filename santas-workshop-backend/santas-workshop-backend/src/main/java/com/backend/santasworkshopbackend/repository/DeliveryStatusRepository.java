@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.backend.santasworkshopbackend.entity.DeliveryStatus;
 
 public interface DeliveryStatusRepository extends JpaRepository<DeliveryStatus, Long>, JpaSpecificationExecutor<DeliveryStatus> {
-    boolean existsByStatus(String status);
+    boolean existsByStatusName(String statusName);
 }

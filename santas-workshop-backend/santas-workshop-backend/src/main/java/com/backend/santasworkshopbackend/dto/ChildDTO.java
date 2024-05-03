@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.sql.Date;
 import com.backend.santasworkshopbackend.entity.Child;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +20,8 @@ public class ChildDTO {
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
-    @JsonProperty("age")
-    private Integer age;
+    @JsonProperty("birthdate")
+    private Date birthdate;
     @JsonProperty("status_id")
     private Long statusID;
     @JsonProperty("location_id")
@@ -31,7 +31,7 @@ public class ChildDTO {
         this.id = child.getId();
         this.firstName = child.getFirstName();
         this.lastName = child.getLastName();
-        this.age = child.getAge();
+        this.birthdate = child.getBirthdate();
         this.statusID = child.getStatusID().getId();
         this.locationID = child.getLocationID().getId();
     }

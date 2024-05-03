@@ -27,7 +27,6 @@ public class DeliveryDTO {
     @JsonProperty("delivered_date")
     private Date deliveredDate;
 
-    // Getters and setters
     public DeliveryDTO(Delivery delivery, boolean shallow) {
         this.id = delivery.getId();
         this.childID = delivery.getChildID().getId();
@@ -35,5 +34,53 @@ public class DeliveryDTO {
         this.wishlistID = delivery.getWishlistID().getId();
         this.statusID = delivery.getStatusID().getId();
         this.deliveredDate = delivery.getDeliveredDate();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getChildID() {
+        return childID;
+    }
+
+    public void setChildID(Long childID) {
+        this.childID = childID;
+    }
+
+    public Long getLocationID() {
+        return locationID;
+    }
+
+    public void setLocationID(Long locationID) {
+        this.locationID = locationID;
+    }
+
+    public Long getWishlistID() {
+        return wishlistID;
+    }
+
+    public void setWishlistID(Long wishlistID) {
+        this.wishlistID = wishlistID;
+    }
+
+    public Long getStatusID() {
+        return statusID;
+    }
+
+    public void setStatusID(Long statusID) {
+        this.statusID = statusID;
+    }
+
+    public Date getDeliveredDate() {
+        return deliveredDate;
+    }
+
+    public void setDeliveredDate(Date deliveredDate) {
+        this.deliveredDate = deliveredDate;
     }
 }

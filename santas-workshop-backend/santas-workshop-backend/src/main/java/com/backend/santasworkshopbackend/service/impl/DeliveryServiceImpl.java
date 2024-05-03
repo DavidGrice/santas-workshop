@@ -51,6 +51,7 @@ public class DeliveryServiceImpl implements DeliveryService{
 
     @Override
     public DeliveryDTO createDelivery(DeliveryDTO deliveryDTO) {
+        Logger.info("DeliveryDTO: ", deliveryDTO.getChildID(), deliveryDTO.getLocationID(), deliveryDTO.getWishlistID(), deliveryDTO.getStatusID(), deliveryDTO.getDeliveredDate());
         Delivery delivery = new Delivery();
 
         Child child = childRepository.findById(deliveryDTO.getChildID())

@@ -49,8 +49,8 @@ class GenerateData:
         return {"child_id": child_id, "toy_id": toy_id}
 
     @staticmethod
-    def generate_delivery_data(delivery_date = "2022-01-01T00:00:00Z", delivery_status_id = None, location_id = None, toy_id = None):
-        return {"delivery_date": delivery_date, "delivery_status_id": delivery_status_id, "location_id": location_id, "toy_id": toy_id}
+    def generate_delivery_data(child_id = None, delivered_date = "2022-01-01T00:00:00Z", status_id = None, location_id = None, wishlist_id = None):
+        return {"child_id": child_id, "delivered_date": delivered_date, "status_id": status_id, "location_id": location_id, "wishlist_id": wishlist_id}
     
 #endregion
 
@@ -746,7 +746,7 @@ class Child:
 
     def search_children(self, params=None):
         params = params or {
-            'id': 1,
+            'id': None,
             'first_name': 'Johnny',
             'last_name': 'Appleseed',
             'birthdate': None,
@@ -1012,7 +1012,8 @@ class Delivery:
                 if status['status_name'] == 'Delivered':
                     break
         delivered_date = delivered_date or "2021-12-01"
-        data = data or GenerateData.generate_delivery_data(delivery_date=delivered_date, delivery_status_id=status_id, location_id=location_id, wishlist_id=wishlist_id)
+        data = data or GenerateData.generate_delivery_data(child_id=child_id, delivered_date=delivered_date, status_id=status_id, location_id=location_id, wishlist_id=wishlist_id)
+        print(data)
         self.send_request('post', 'add', json=data)
 
     def get_delivery_by_id(self, id=None):
@@ -1073,7 +1074,7 @@ class Delivery:
                 if delivery['child_id'] == child_id:
                     break
         delivered_date = delivered_date or "2024-12-01"
-        data = data or GenerateData.generate_delivery_data(delivery_date=delivered_date, delivery_status_id=status_id, location_id=location_id, wishlist_id=wishlist_id)
+        data = data or GenerateData.generate_delivery_data(child_id=child_id, delivered_date=delivered_date, status_id=status_id, location_id=location_id, wishlist_id=wishlist_id)
         self.send_request('put', 'update', id=id, json=data)
 
     def delete_delivery_by_id(self, id=None):
@@ -1129,15 +1130,29 @@ class Delivery:
             'status_id': status_id,
             'delivered_date': delivered_date
         }
-        self.send_request('get', 'search', params=params)
+        return self.send_request('get', 'search', params=params)
 
     def exists_by_child_id_and_wishlist_id(self, child_id = None, wishlist_id = None, params=None):
         child_instance = Child()
-        child_data = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"}).json()
-        child_id = child_id or child_data['id']
-        toy_instance = Toy()
-        toy_data = toy_instance.search_toys({"name": "Teddy Bear"}).json()
-        wishlist_id = wishlist_id or toy_data['id']
+        child_response = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"})
+        if child_response.status_code == 200:
+            child_data = child_response.json()
+            child_content = child_data['content']
+            for child in child_content:
+                child_id = child['id']
+                print(f"Child ID: {child_id}")
+                if child['first_name'] == 'Johnny':
+                    break
+        wishlist_instance = Wishlist()
+        wishlist_response = wishlist_instance.search_wishlists({"id": None, "child_id": child_id, "toy_id": None})
+        if wishlist_response.status_code == 200:
+            wishlist_data = wishlist_response.json()
+            wishlist_content = wishlist_data['content']
+            for wishlist in wishlist_content:
+                wishlist_id = wishlist['id']
+                print(f"Wishlist ID: {wishlist_id}")
+                if wishlist['child_id'] == child_id:
+                    break
         params = {
             'child_id': child_id,
             'wishlist_id': wishlist_id
@@ -1146,13 +1161,35 @@ class Delivery:
 
     def exists_by_delivery_status(self, child_id = None, wishlist_id = None, status_id = None, params=None):
         child_instance = Child()
-        child_data = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"}).json()
-        child_id = child_id or child_data['id']
-        toy_instance = Toy()
-        toy_data = toy_instance.search_toys({"name": "Teddy Bear"}).json()
-        wishlist_id = wishlist_id or toy_data['id']
+        child_response = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"})
+        if child_response.status_code == 200:
+            child_data = child_response.json()
+            child_content = child_data['content']
+            for child in child_content:
+                child_id = child['id']
+                print(f"Child ID: {child_id}")
+                if child['first_name'] == 'Johnny':
+                    break
+        wishlist_instance = Wishlist()
+        wishlist_response = wishlist_instance.search_wishlists({"id": None, "child_id": child_id, "toy_id": None})
+        if wishlist_response.status_code == 200:
+            wishlist_data = wishlist_response.json()
+            wishlist_content = wishlist_data['content']
+            for wishlist in wishlist_content:
+                wishlist_id = wishlist['id']
+                print(f"Wishlist ID: {wishlist_id}")
+                if wishlist['child_id'] == child_id:
+                    break
         delivery_status_instance = DeliveryStatus()
-        status_data = delivery_status_instance.search_statuses({"status_name": "Delivered", "status_description": "Toy has been delivered."}).json()
+        status_response = delivery_status_instance.search_statuses({"status_name": "Delivered", "status_description": None})
+        if status_response.status_code == 200:
+            status_data = status_response.json()
+            status_content = status_data['content']
+            for status in status_content:
+                status_id = status['id']
+                print(f"Status ID: {status_id}")
+                if status['status_name'] == 'Delivered':
+                    break
         status_id = status_id or status_data['id']
         params = {
             'child_id': child_id,
@@ -1163,14 +1200,35 @@ class Delivery:
 
     def exists_by_delivery_date(self, child_id = None, wishlist_id = None, status_id = None, delivery_date = None):
         child_instance = Child()
-        child_data = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"}).json()
-        child_id = child_id or child_data['id']
-        toy_instance = Toy()
-        toy_data = toy_instance.search_toys({"name": "Teddy Bear"}).json()
-        wishlist_id = wishlist_id or toy_data['id']
+        child_response = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"})
+        if child_response.status_code == 200:
+            child_data = child_response.json()
+            child_content = child_data['content']
+            for child in child_content:
+                child_id = child['id']
+                print(f"Child ID: {child_id}")
+                if child['first_name'] == 'Johnny':
+                    break
+        wishlist_instance = Wishlist()
+        wishlist_response = wishlist_instance.search_wishlists({"id": None, "child_id": child_id, "toy_id": None})
+        if wishlist_response.status_code == 200:
+            wishlist_data = wishlist_response.json()
+            wishlist_content = wishlist_data['content']
+            for wishlist in wishlist_content:
+                wishlist_id = wishlist['id']
+                print(f"Wishlist ID: {wishlist_id}")
+                if wishlist['child_id'] == child_id:
+                    break
         delivery_status_instance = DeliveryStatus()
-        status_data = delivery_status_instance.search_statuses({"status_name": "Delivered", "status_description": "Toy has been delivered."}).json()
-        status_id = status_id or status_data['id']
+        status_response = delivery_status_instance.search_statuses({"status_name": "Delivered", "status_description": "Toy has been delivered."})
+        if status_response.status_code == 200:
+            status_data = status_response.json()
+            status_content = status_data['content']
+            for status in status_content:
+                status_id = status['id']
+                print(f"Status ID: {status_id}")
+                if status['status_name'] == 'Delivered':
+                    break
         delivery_date = delivery_date or "2021-12-01"
         params = {
             'child_id': child_id,

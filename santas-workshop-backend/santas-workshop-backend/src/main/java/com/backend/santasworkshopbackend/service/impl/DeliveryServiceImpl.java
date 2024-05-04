@@ -134,7 +134,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     }
 
     @Override
-    public Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long wishlistId, Long deliveryStatusId, Date deliveryDate, Pageable pagedDeliveries) {
+    public Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long locationId, Long wishlistId, Long deliveryStatusId, Date deliveryDate, Pageable pagedDeliveries) {
         Specification<Delivery> spec = Specification.where(null);
 
         if (id != null) {
@@ -142,6 +142,9 @@ public class DeliveryServiceImpl implements DeliveryService{
         }
         if (childId != null) {
             spec = spec.and(new DeliverySpecification(new SearchCriteria("childID", ":", childId)));
+        }
+        if (locationId != null) {
+            spec = spec.and(new DeliverySpecification(new SearchCriteria("locationID", ":", locationId)));
         }
         if (wishlistId != null) {
             spec = spec.and(new DeliverySpecification(new SearchCriteria("wishlistID", ":", wishlistId)));

@@ -952,7 +952,7 @@ class Delivery:
         "update": "/api/deliveries/updateDelivery/{id}",
         "delete": "/api/deliveries/deleteDelivery/{id}",
         "search": "/api/deliveries/searchDeliveries",
-        "exists_by_child_id_and_toy_id": "/api/deliveries/existsByChildID_IdAndWishlistID_Id",
+        "exists_by_child_id_and_wishlist_id": "/api/deliveries/existsByChildID_IdAndWishlistID_Id",
         "exists_by_delivery_status": "/api/deliveries/existsByChildID_IdAndWishlistID_IdAndStatusID_Id",
         "exists_by_delivery_date": "/api/deliveries/existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate"
     }
@@ -1011,7 +1011,7 @@ class Delivery:
                 print(f"Status ID: {status_id}")
                 if status['status_name'] == 'Delivered':
                     break
-        delivered_date = delivered_date or "2021-12-01"
+        delivered_date = delivered_date or datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
         data = data or GenerateData.generate_delivery_data(child_id=child_id, delivered_date=delivered_date, status_id=status_id, location_id=location_id, wishlist_id=wishlist_id)
         print(data)
         self.send_request('post', 'add', json=data)
@@ -1073,8 +1073,9 @@ class Delivery:
                 print(f"Delivery ID: {id}")
                 if delivery['child_id'] == child_id:
                     break
-        delivered_date = delivered_date or "2024-12-01"
-        data = data or GenerateData.generate_delivery_data(child_id=child_id, delivered_date=delivered_date, status_id=status_id, location_id=location_id, wishlist_id=wishlist_id)
+        delivered_date = delivered_date or datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
+        data = data or GenerateData.generate_delivery_data(child_id=child_id, location_id=location_id, wishlist_id=wishlist_id, status_id=status_id, delivered_date=delivered_date)
+        print(data)
         self.send_request('put', 'update', id=id, json=data)
 
     def delete_delivery_by_id(self, id=None):
@@ -1122,15 +1123,8 @@ class Delivery:
                 print(f"Status ID: {status_id}")
                 if status['status_name'] == 'Delivered':
                     break
-        params = params or {
-            'id': id,
-            'child_id': child_id,
-            'location_id': location_id,
-            'wishlist_id': wishlist_id,
-            'status_id': status_id,
-            'delivered_date': delivered_date
-        }
-        return self.send_request('get', 'search', params=params)
+        params = params or {'child_id': child_id, 'location_id': location_id, 'wishlist_id': wishlist_id, 'status_id': status_id, 'delivered_date': delivered_date}
+        return self.send_request('get', 'search', id=id, params=params)
 
     def exists_by_child_id_and_wishlist_id(self, child_id = None, wishlist_id = None, params=None):
         child_instance = Child()
@@ -1153,11 +1147,8 @@ class Delivery:
                 print(f"Wishlist ID: {wishlist_id}")
                 if wishlist['child_id'] == child_id:
                     break
-        params = {
-            'child_id': child_id,
-            'wishlist_id': wishlist_id
-        }
-        self.send_request('get', 'exists_by_child_id_and_toy_id', params=params)
+        params = params or {'childId': child_id, 'wishlistId': wishlist_id}
+        self.send_request('get', 'exists_by_child_id_and_wishlist_id', params=params)
 
     def exists_by_delivery_status(self, child_id = None, wishlist_id = None, status_id = None, params=None):
         child_instance = Child()
@@ -1191,14 +1182,10 @@ class Delivery:
                 if status['status_name'] == 'Delivered':
                     break
         status_id = status_id or status_data['id']
-        params = {
-            'child_id': child_id,
-            'wishlist_id': wishlist_id,
-            'status_id': status_id
-        }
+        params = {'childId': child_id, 'wishlistId': wishlist_id, 'deliveryStatusId': status_id}
         self.send_request('get', 'exists_by_delivery_status', params=params)
 
-    def exists_by_delivery_date(self, child_id = None, wishlist_id = None, status_id = None, delivery_date = None):
+    def exists_by_delivery_date(self, child_id = None, wishlist_id = None, status_id = None, delivered_date = None):
         child_instance = Child()
         child_response = child_instance.search_children({"first_name": "Johnny", "last_name": "Appleseed"})
         if child_response.status_code == 200:
@@ -1229,13 +1216,8 @@ class Delivery:
                 print(f"Status ID: {status_id}")
                 if status['status_name'] == 'Delivered':
                     break
-        delivery_date = delivery_date or "2021-12-01"
-        params = {
-            'child_id': child_id,
-            'wishlist_id': wishlist_id,
-            'status_id': status_id,
-            'delivery_date': delivery_date
-        }
+        delivered_date = delivered_date or "2021-12-01"
+        params = {'childId': child_id, 'wishlistId': wishlist_id, 'deliveryStatusId': status_id, 'deliveryDate': delivered_date}
         self.send_request('get', 'exists_by_delivery_date', params=params)
 
 #endregion

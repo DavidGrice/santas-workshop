@@ -65,11 +65,12 @@ public class DeliveryController {
     @GetMapping("/searchDeliveries")
     public ResponseEntity<Page<DeliveryDTO>> searchDeliveries(@RequestParam(required = false) Long id,
                                                               @RequestParam(required = false) Long childId,
+                                                              @RequestParam(required = false) Long locationId,
                                                               @RequestParam(required = false) Long wishlistId,
-                                                              @RequestParam(required = false) Long deliveryStatusId,
+                                                              @RequestParam(required = false) Long statusId,
                                                               @RequestParam(required = false) Date deliveryDate,
                                                               Pageable pagedDeliveries) {
-        Page <DeliveryDTO> delivery = deliveryService.searchDeliveries(id, childId, wishlistId, deliveryStatusId, deliveryDate, pagedDeliveries);
+        Page <DeliveryDTO> delivery = deliveryService.searchDeliveries(id, childId, wishlistId, locationId, statusId, deliveryDate, pagedDeliveries);
         return new ResponseEntity<>(delivery, HttpStatus.OK);
     }
 
@@ -79,7 +80,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/existsByChildID_IdAndWishlistID_IdAndStatusID_Id")
-    public ResponseEntity<Boolean> existsByChildIdAndWishlistIdAndDeliveryStatusId(@RequestParam Long childId, @RequestParam Long wishlistId, @RequestParam Long deliveryStatusId) {
+    public ResponseEntity<Boolean> existsByChildID_IdAndWishlistID_IdAndStatusID_Id(@RequestParam Long childId, @RequestParam Long wishlistId, @RequestParam Long deliveryStatusId) {
         return new ResponseEntity<>(deliveryService.existsByChildID_IdAndWishlistID_IdAndStatusID_Id(childId, wishlistId, deliveryStatusId), HttpStatus.OK);
     }
 

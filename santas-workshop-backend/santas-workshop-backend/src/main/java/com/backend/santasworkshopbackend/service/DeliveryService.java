@@ -15,7 +15,7 @@ public interface DeliveryService {
     Page<DeliveryDTO> getAllDeliveries(Pageable pageable);
     DeliveryDTO updateDelivery(DeliveryDTO deliveryDTO);
     void deleteDelivery(Long id);
-    Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long toyId, Long deliveryStatusId, Date deliveryDate, Pageable pageable);
+    Page<DeliveryDTO> searchDeliveries(Long id, Long childId, Long locationId, Long wishlistId, Long deliveryStatusId, Date deliveryDate, Pageable pageable);
     boolean existsByChildID_IdAndWishlistID_Id(Long childId, Long wishlistId);
     boolean existsByChildID_IdAndWishlistID_IdAndStatusID_Id(Long childId, Long wishlistId, Long deliveryStatusId);
     boolean existsByChildID_IdAndWishlistID_IdAndStatusID_IdAndDeliveredDate(Long childId, Long wishlistId, Long deliveryStatusId, Date deliveryDate);
